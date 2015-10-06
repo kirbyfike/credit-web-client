@@ -1,103 +1,155 @@
+<section class="panel panel-default table-dynamic">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Bordered table</strong></div>
 
-<div class="page page-tasks ng-scope">
-    <div class="row">
-        <div class="col-md-12">
-            <section class="task-container ng-scope" data-ng-controller="taskCtrl">
+        <div class="table-filters">
+            <div class="row">
+                <div class="col-sm-4 col-xs-6">
+                    <form class="ng-pristine ng-valid">
+                        <input type="text" placeholder="search" class="form-control ng-pristine ng-valid" data-ng-model="searchKeywords" data-ng-keyup="search()">
+                    </form>
+                </div>
+                <div class="col-sm-3 col-xs-6 filter-result-info">
+                    <span class="ng-binding">
+                        Showing x/x entries
+                    </span>              
+                </div>
+                <div><button type="button" class="pull-right btn btn-primary btn-sm">Add Question</button></div>
 
-                <form data-ng-submit="add()" class="add-task ng-pristine ng-valid">
-                    <input type="text" placeholder="Add a new question" class="form-control ng-pristine ng-valid" data-ng-model="newTask" autofocus="">
-                    <a type="submit" class="submit-button" data-ng-click="add()">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </a>
-                </form>
-
- 
-                <section class="panel panel-default">
-                        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Questions Master</strong></div>
-                        <div class="panel-body">
-                            <div class="table-wrapper"><div class="scrollable"><table class="responsive table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th style="">Question #</th>
-                                        <th>Question Text</th>
-                                        <th>Trigger Finding On</th>
-                                        <th>Risk Category</th>
-                                        <th>Finding Category</th>
-                                        <th>Finding Sub-Category</th>
-                                        <th>Finding Statement</th>
-                                        <th>Finding Comment Template</th>
-                                        <th>Risk Rating</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                	<tr>
-                                		<th style="">1</th>
-                                		<td>Was 2 full years of employment verified?</td>
-                                		<td>No</td>
-                                		<td>Credit</td>
-                                		<td>Employment</td>
-                                		<td>Two full years of employment verified</td>
-                                		<td>2 Full Years of Employment Verified</td>
-                                		<td>High Risk</td>
-                                	</tr>
-
-                                	<tr>
-                                		<th style="">2</th>
-                                		<td>Was the required employment documentation acceptable (W-2, VOE, 1040, paystub)?</td>
-                                		<td>No</td>
-                                		<td>Credit</td>
-                                		<td>Employment</td>
-                                		<td>Required employment documentation acceptable</td>
-                                		<td>Employment Documentation was not acceptable</td>
-                                		<td>Income documentation in file is not acceptable - </td>
-                                		<td>Unsatisfactory</td>
-                                	</tr>
-
-                                	<tr>
-                                		<th style="">3</th>
-                                		<td>Does the file contain a Verbal VOE or Work # ?</td>
-                                		<td>No</td>
-                                		<td>Credit</td>
-                                		<td>Employment</td>
-                                		<td>The file contains a Verbal VOE</td>
-                                		<td>Test</td>
-                                		<td>Verbal VOE is missing from imaged file.</td>
-                                		<td>High Risk</td>
-                                	</tr>
-
-                                	<tr>
-                                		<th style="">4</th>
-                                		<td>Was the Verbal VOE  or Work #  verification obtained within program guidelines?</td>
-                                		<td>No</td>
-                                		<td>Credit</td>
-                                		<td>Employment</td>
-                                		<td>Verbal VOE or Work # obtained within program guidelines</td>
-                                		<td>Test</td>
-                                		<td>Verbal VOE not sufficient per guidelines - </td>
-                                		<td>High Risk</td>
-                                	</tr>
-
-                                	<tr>
-                                		<th style="">5</th>
-                                		<td>Was the age of the income documentation within requirements at time of funding?</td>
-                                		<td>No</td>
-                                		<td>Credit</td>
-                                		<td>Employment</td>
-                                		<td>Income documentation timely</td>
-                                		<td>Test</td>
-                                		<td>Unsatisfactory</td>
-                                	</tr>
-
-
-                                </tbody>
-                            </table></div><div class="pinned"></div>            
-                        </div>
-                    </section>
-
-
-      </section>
+            </div>
         </div>
-    </div>
 
-</div>
+        <table class="table table-bordered table-striped table-responsive">
+             <thead>
+                 <tr>
+                     <th><div class="th">
+                         Question #
+                         
+                     </div></th>
+                     <th><div class="th">
+                         Question Text
+                        
+                     </div></th>
+                     <th><div class="th">
+                         Trigger Finding On
+                        
+                     </div></th>
+                     <th><div class="th">
+                         Risk Category
+                        
+                     </div></th>
+                     <th><div class="th">
+                         Finding Category
+                         
+                     </div></th>
+                     <th><div class="th">
+                         Finding Sub-Category
+                        
+                     </div></th>
+                     <th><div class="th">
+                         Finding Statement
+                         
+                     </div></th>
+                     <th><div class="th">
+                         Finding Comment Template
+                         
+                     </div></th>
+                     <th><div class="th">
+                         Risk Rating
+                         
+                     </div></th>
+                     <th><div class="th">
+                         Edit
+                         
+                     </div></th>
+
+                 </tr>
+             </thead>
+             <tbody>
+
+                <tr>
+                    <th style="">1</th>
+                    <td>Was 2 full years of employment verified?</td>
+                    <td>No</td>
+                    <td>Credit</td>
+                    <td>Employment</td>
+                    <td>Two full years of employment verified</td>
+                    <td>2 Full Years of Employment Verified</td>
+                    <td>.</td>
+                    <td>High Risk</td>
+                    <td><span class="glyphicon glyphicon-pencil"></span></td>
+                </tr>
+
+                <tr>
+                    <th style="">2</th>
+                    <td>Was the required employment documentation acceptable (W-2, VOE, 1040, paystub)?</td>
+                    <td>No</td>
+                    <td>Credit</td>
+                    <td>Employment</td>
+                    <td>Required employment documentation acceptable</td>
+                    <td>Employment Documentation was not acceptable</td>
+                    <td>Income documentation in file is not acceptable - </td>
+                    <td>Unsatisfactory</td>
+                    <td><span class="glyphicon glyphicon-pencil"></span></td>
+                </tr>
+
+                <tr>
+                    <th style="">3</th>
+                    <td>Does the file contain a Verbal VOE or Work # ?</td>
+                    <td>No</td>
+                    <td>Credit</td>
+                    <td>Employment</td>
+                    <td>The file contains a Verbal VOE</td>
+                    <td>Test</td>
+                    <td>Verbal VOE is missing from imaged file.</td>
+                    <td>High Risk</td>
+                    <td><span class="glyphicon glyphicon-pencil"></span></td>
+                </tr>
+
+                <tr>
+                    <th style="">4</th>
+                    <td>Was the Verbal VOE  or Work #  verification obtained within program guidelines?</td>
+                    <td>No</td>
+                    <td>Credit</td>
+                    <td>Employment</td>
+                    <td>Verbal VOE or Work # obtained within program guidelines</td>
+                    <td>Test</td>
+                    <td>Verbal VOE not sufficient per guidelines - </td>
+                    <td>High Risk</td>
+                    <td><span class="glyphicon glyphicon-pencil"></span></td>
+                </tr>
+
+                <tr>
+                    <th style="">5</th>
+                    <td>Was the age of the income documentation within requirements at time of funding?</td>
+                    <td>No</td>
+                    <td>Credit</td>
+                    <td>Employment</td>
+                    <td>Income documentation timely</td>
+                    <td>Test</td>
+                    <td>.</td>
+                    <td>Unsatisfactory</td>
+                    <td><span class="glyphicon glyphicon-pencil"></span></td>
+                </tr>
+
+
+  
+            </tbody>
+        </table>
+
+        <footer class="table-footer">
+            <div class="row">
+                <div class="col-md-6 page-num-info">
+                    <span>
+                        Show 
+                        <select data-ng-model="numPerPage" data-ng-options="num for num in numPerPageOpt" data-ng-change="onNumPerPageChange()" class="ng-pristine ng-valid"><option value="0">3</option><option value="1">5</option><option value="2" selected="selected">10</option><option value="3">20</option></select> 
+                        entries per page
+                    </span>
+                </div>
+                <div class="col-md-6 text-right pagination-container">
+                    <ul class="pagination-sm pagination ng-isolate-scope" page="currentPage" total-items="filteredStores.length" max-size="4" on-select-page="select(page)" items-per-page="numPerPage" rotate="false" boundary-links="true">
+  <!-- ngRepeat: page in pages --><li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" class="ng-scope disabled"><a ng-click="selectPage(page.number)" class="ng-binding">First</a></li><!-- end ngRepeat: page in pages --><li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" class="ng-scope disabled"><a ng-click="selectPage(page.number)" class="ng-binding">Previous</a></li><!-- end ngRepeat: page in pages --><li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" class="ng-scope active"><a ng-click="selectPage(page.number)" class="ng-binding">1</a></li><!-- end ngRepeat: page in pages --><li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" class="ng-scope"><a ng-click="selectPage(page.number)" class="ng-binding">2</a></li><!-- end ngRepeat: page in pages --><li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" class="ng-scope"><a ng-click="selectPage(page.number)" class="ng-binding">3</a></li><!-- end ngRepeat: page in pages --><li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" class="ng-scope"><a ng-click="selectPage(page.number)" class="ng-binding">Next</a></li><!-- end ngRepeat: page in pages --><li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" class="ng-scope"><a ng-click="selectPage(page.number)" class="ng-binding">Last</a></li><!-- end ngRepeat: page in pages -->
+</ul>
+                </div>
+            </div>
+        </footer>
+    </section>
