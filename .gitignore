@@ -1,6 +1,6 @@
 node_modules/
 src/bower_components/
-src/assets/javascript/app_bundled.js
+src/assets/javascript/app-bundled.js
 src/assets/css/main.css
 npm-debug.log
 .DS_Store
