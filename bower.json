@@ -1,0 +1,30 @@
+{
+  "name": "Credit",
+  "version": "1.0.0",
+  "homepage": "credit.dev",
+  "authors": [
+    "pshingavi <kirby.fike@pnmac.com>"
+  ],
+  "description": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "src/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "bootstrap-sass-official#~3.3.5",
+    "font-awesome": "fontawesome#~4.4.0",
+    "jquery": "~2.1.4",
+    "angular-resource": "~1.4.0",
+    "angular-route": "~1.4.0",
+    "angular-animate": "~1.4.0",
+    "angular-aria": "~1.4.0",
+    "angular-bootstrap": "~0.13.0"
+  },
+  "devDependencies": {
+    "compass-mixins": "~1.0.2"
+  }
+}

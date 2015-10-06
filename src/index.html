@@ -1,0 +1,31 @@
+<!doctype hmtl>
+<html lang="en" ng-app="credit">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+  </head>
+  <body>
+    <div>
+      <section ui-view="header" id="header" class="top-header"></section>
+
+      <aside ui-view="nav" id="nav-container"></aside>
+    </div>
+
+    <div class="view-container">
+      <section ui-view="main" id="content" class="animate-fade-up"></section>
+    </div>
+
+    <!-- scripts -->
+    <script src="assets/javascript/app-bundled.js"></script>
+    
+    <!--Angular taken care by browserify see app.js
+
+    Why don't we replace all of our Bower components? It's good to use both Bower and Browserify in case NPM does not have a certain dependency that Bower may have. The point of this example is to show you how to use both.
+    
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>-->
+
+  </body>
+</html>
