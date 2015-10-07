@@ -3,6 +3,7 @@
 
 	require('angular');
 	require('angular-ui-router');
+	require('angular-resource');
 
 	require('./login/login.js');
 	require('./admin/questionnaire/questionnaire.js');
@@ -17,6 +18,10 @@
 	  'credit.admin.questionnaire',
 	  'ui.router'
 	])
+
+	.constant('URLHOST', (function() {
+	  return location.href.split( '/' )[2];
+	})())
 
 	.config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
 	  //$urlRouterProvider.otherwise( '/flatify/charts/gauge' );

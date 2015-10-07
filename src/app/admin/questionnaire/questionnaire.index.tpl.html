@@ -1,1 +1,8 @@
 <h1>Questionnaire Index</h1>
+
+<ul>
+	<li ng-repeat="questionnaire in questionnaires">
+	  <p>{{questionnaire.title}}</p>
+	  <p>{{questionnaire.completed}}</p>
+	</li>
+</ul>

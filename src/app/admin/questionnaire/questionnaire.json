@@ -1,4 +1,6 @@
-{{
-	id: 4
-}
-}
+[
+  {"title": "Finish homework", "completed": true},
+  {"title": "Make a call", "completed": true},
+  {"title": "Play games with friends", "completed": false},
+  {"title": "Shopping", "completed": false}
+]
