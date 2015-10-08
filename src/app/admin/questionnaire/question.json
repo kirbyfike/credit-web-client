@@ -1,0 +1,61 @@
+[
+  {	
+  	"question_id": 1, 
+  	"question_text": "Was 2 full years of employment verified?", 
+  	"trigger_finding_on": "No", 
+  	"risk_category": "Credit",
+  	"finding_category": "Employment", 
+  	"finding_sub_category": "Two full years of employment verified", 
+  	"finding_statement": "2 Full Years of Employment Verified", 
+  	"finding_comment_template": ".", 
+  	"risk_rating": "High Risk"
+  },
+
+  {
+  	"question_id": 2, 
+  	"question_text": "Was the required employment documentation acceptable (W-2, VOE, 1040, paystub)?", 
+  	"trigger_finding_on": "No", 
+  	"risk_category": "Credit", 
+  	"finding_category": "Employment", 
+  	"finding_sub_category": "Required employment documentation acceptable", 
+  	"finding_statement": "Employment Documentation was not acceptable", 
+  	"finding_comment_template": "Income documentation in file is not acceptable - ", 
+  	"risk_rating": "Unsatisfactory"
+  },
+
+  {
+  	"question_id": 3, 
+  	"question_text": "Does the file contain a Verbal VOE or Work # ?", 
+  	"trigger_finding_on": "No", 
+  	"risk_category": "Credit", 
+  	"finding_category": "Employment", 
+  	"finding_sub_category": "The file contains a Verbal VOE", 
+  	"finding_statement": "Test", 
+  	"finding_comment_template": "Verbal VOE is missing from imaged file.", 
+  	"risk_rating": "High Risk"
+  },
+
+  {
+  	"question_id": 4, 
+  	"question_text": "Was the Verbal VOE  or Work #  verification obtained within program guidelines?", 
+  	"trigger_finding_on": "No", 
+  	"risk_category": "Credit", 
+  	"finding_category": "Employment", 
+  	"finding_sub_category": "Verbal VOE or Work # obtained within program guidelines", 
+  	"finding_statement": "Test", 
+  	"finding_comment_template": "Verbal VOE not sufficient per guidelines - ", 
+  	"risk_rating": "High Risk"
+  },
+
+  {
+  	"question_id": 5, 
+  	"question_text": "Was the age of the income documentation within requirements at time of funding?", 
+  	"trigger_finding_on": "No", 
+  	"risk_category": "Credit", 
+  	"finding_category": "Employment", 
+  	"finding_sub_category": "Income documentation timely", 
+  	"finding_statement": "Test", 
+  	"finding_comment_template": ".", 
+  	"risk_rating": "Unsatisfactory"
+  }
+]

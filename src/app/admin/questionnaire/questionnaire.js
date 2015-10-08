@@ -45,26 +45,62 @@ angular.module( 'credit.admin.questionnaire', [
     ;
 })
 
-.factory('taskStorage', function() {
-  var DEMO_TASKS, STORAGE_ID;
-  STORAGE_ID = 'tasks';
-  DEMO_TASKS = '[ {"title": "Finish homework", "completed": true}, {"title": "Make a call", "completed": true}, {"title": "Play games with friends", "completed": false}, {"title": "Shopping", "completed": false} ]';
-  return {
+.factory('Question', function ($resource, URLHOST)  {
+  var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/question.json" : "/question.json";
+  STORAGE_ID = 'questions';
+  DEMO_QUESTIONS = require('./question.json');
+
+
+  var LocalQuestion = {
     get: function() {
-      return JSON.parse(localStorage.getItem(STORAGE_ID) || DEMO_TASKS);
+      return JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONS;
     },
-    put: function(tasks) {
-      return localStorage.setItem(STORAGE_ID, JSON.stringify(tasks));
+    put: function(questions) {
+      return localStorage.setItem(STORAGE_ID, JSON.stringify(questions));
     }
   };
+
+  var Question = $resource(URLHOST + "/Question/:id.json", {id:'@id'}, {
+    update: { 
+        method: 'PUT', 
+        params: { id: '@id' }
+    },
+    remove: {method:'DELETE'}
+  });
+
+  return (URLHOST == "localhost:8888") ? LocalQuestion : Question;
+})
+
+.factory('Category', function ($resource, URLHOST)  {
+  var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/category.json" : "/category.json";
+  STORAGE_ID = 'categories';
+  DEMO_CATEGORIES = require('./category.json');
+
+
+  var LocalCategory = {
+    get: function() {
+      return JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
+    },
+    put: function(categories) {
+      return localStorage.setItem(STORAGE_ID, JSON.stringify(categories));
+    }
+  };
+
+  var Category = $resource(URLHOST + "/category/:id.json", {id:'@id'}, {
+    update: { 
+        method: 'PUT', 
+        params: { id: '@id' }
+    },
+    remove: {method:'DELETE'}
+  });
+
+  return (URLHOST == "localhost:8888") ? LocalCategory : Category;
 })
 
 .factory('Questionnaire', function ($resource, URLHOST)  {
   var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/questionnaire.json" : "/questionnaire.json";
   STORAGE_ID = 'questionnaires';
   DEMO_QUESTIONNAIRES = require('./questionnaire.json');
-  DEMO_TASKS = '[ {"title": "Finish homework", "completed": true}, {"title": "Make a call", "completed": true}, {"title": "Play games with friends", "completed": false}, {"title": "Shopping", "completed": false} ]';
-
 
   var LocalQuestionnaire = {
     get: function() {
@@ -87,22 +123,20 @@ angular.module( 'credit.admin.questionnaire', [
 })
 
 .controller( 'AdminQuestionnaireCtrl', function AdminQuestionnaireCtrl($scope, $state) {
-  
 })
 
-.controller( 'AdminQuestionnaireIndexCtrl', function AdminQuestionnaireIndexCtrl($scope, $state, Questionnaire, taskStorage) {
+.controller( 'AdminQuestionnaireIndexCtrl', function AdminQuestionnaireIndexCtrl($scope, $state, Questionnaire) {
   $scope.questionnaires = Questionnaire.get();
 })
 
 .controller( 'AdminQuestionnaireNavCtrl', function AdminQuestionnaireNavCtrl($scope, $state) {
-  console.log("index");
 })
 
-.controller( 'AdminQuestionnaireCategoriesCtrl', function AdminQuestionnaireCategoriesCtrl($scope, $state) {
-  console.log("index");
+.controller( 'AdminQuestionnaireCategoriesCtrl', function AdminQuestionnaireCategoriesCtrl($scope, $state, Category) {
+  $scope.categories = Category.get();
 })
 
-.controller( 'AdminQuestionnaireQuestionsCtrl', function AdminQuestionnaireQuestionsCtrl($scope, $state) {
-  console.log("index");
+.controller( 'AdminQuestionnaireQuestionsCtrl', function AdminQuestionnaireQuestionsCtrl($scope, $state, Question) {
+  $scope.questions = Question.get();
 })
 ;
