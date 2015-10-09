@@ -30,6 +30,12 @@ angular.module( 'credit.admin.questionnaire', [
       templateUrl: 'app/admin/questionnaire/questionnaire.index.tpl.html',
       data:{ pageTitle: 'Model' }
     })
+    .state( 'adminQuestionnaire.edit', {
+      url: '/:id/edit',
+      controller: 'AdminQuestionnaireEditCtrl',
+      templateUrl: 'app/admin/questionnaire/questionnaire.edit.tpl.html',
+      data:{ pageTitle: 'Model' }
+    })
     .state( 'adminQuestionnaire.categories', {
       url: '/categories',
       controller: 'AdminQuestionnaireCategoriesCtrl',
@@ -52,10 +58,23 @@ angular.module( 'credit.admin.questionnaire', [
 
 
   var LocalQuestion = {
-    get: function() {
-      return JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONS;
+    get: function(question) {
+      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONS;
+
+      if ((typeof return_array != 'undefined') && question) {
+        var id = question.question_id;
+
+        for (var i = 0; i < return_array.length; i++) {
+          if (return_array[i].question_id == id) return return_array[i];
+        }
+      }
+
+      return return_array;
     },
     put: function(questions) {
+      return localStorage.setItem(STORAGE_ID, JSON.stringify(questions));
+    },
+    update: function(questions) {
       return localStorage.setItem(STORAGE_ID, JSON.stringify(questions));
     }
   };
@@ -127,6 +146,18 @@ angular.module( 'credit.admin.questionnaire', [
 
 .controller( 'AdminQuestionnaireIndexCtrl', function AdminQuestionnaireIndexCtrl($scope, $state, Questionnaire) {
   $scope.questionnaires = Questionnaire.get();
+})
+
+.controller( 'AdminQuestionnaireEditCtrl', function AdminQuestionnaireIndexCtrl($scope, $state, Question, $state) {
+  $scope.question = Question.get({question_id:$state.params.id});
+
+  $scope.update = function(question) {
+    Question.update(question, function(response) {
+      $state.go("adminQuestionnaire.questions", {}, {reload: true});
+    }, function(error) {
+      $scope.error = error.data;
+    });
+  };
 })
 
 .controller( 'AdminQuestionnaireNavCtrl', function AdminQuestionnaireNavCtrl($scope, $state) {

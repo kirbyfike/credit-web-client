@@ -66,26 +66,23 @@
                   <td>{{question.finding_statement}}</td>
                   <td>{{question.finding_comment_template}}</td>
                   <td>{{question.risk_rating}}</td>
-                  <td><span class="glyphicon glyphicon-pencil"></span></td>
+                  <td><a ui-sref="adminQuestionnaire.edit({id: question.question_id})" class="glyphicon glyphicon-pencil"></a></td>
                 </tr>
               </tbody>
             </table>
 
             <footer class="table-footer">
-                <div class="row">
-                    <div class="col-md-6 page-num-info">
-                        <span>
-                            Show 
-                            <select data-ng-model="numPerPage" data-ng-options="num for num in numPerPageOpt" data-ng-change="onNumPerPageChange()" class="ng-pristine ng-valid"><option value="0">3</option><option value="1">5</option><option value="2" selected="selected">10</option><option value="3">20</option></select> 
-                            entries per page
-                        </span>
-                    </div>
-                    <div class="col-md-6 text-right pagination-container">
-                        <ul class="pagination-sm pagination ng-isolate-scope" page="currentPage" total-items="filteredStores.length" max-size="4" on-select-page="select(page)" items-per-page="numPerPage" rotate="false" boundary-links="true">
-      <!-- ngRepeat: page in pages --><li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" class="ng-scope disabled"><a ng-click="selectPage(page.number)" class="ng-binding">First</a></li><!-- end ngRepeat: page in pages --><li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" class="ng-scope disabled"><a ng-click="selectPage(page.number)" class="ng-binding">Previous</a></li><!-- end ngRepeat: page in pages --><li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" class="ng-scope active"><a ng-click="selectPage(page.number)" class="ng-binding">1</a></li><!-- end ngRepeat: page in pages --><li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" class="ng-scope"><a ng-click="selectPage(page.number)" class="ng-binding">2</a></li><!-- end ngRepeat: page in pages --><li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" class="ng-scope"><a ng-click="selectPage(page.number)" class="ng-binding">3</a></li><!-- end ngRepeat: page in pages --><li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" class="ng-scope"><a ng-click="selectPage(page.number)" class="ng-binding">Next</a></li><!-- end ngRepeat: page in pages --><li ng-repeat="page in pages" ng-class="{active: page.active, disabled: page.disabled}" class="ng-scope"><a ng-click="selectPage(page.number)" class="ng-binding">Last</a></li><!-- end ngRepeat: page in pages -->
-    </ul>
-                    </div>
+              <div class="row">
+                <div class="col-md-6 page-num-info">
+                  <span>
+                      Show 
+                      <select data-ng-model="numPerPage" data-ng-options="num for num in numPerPageOpt" data-ng-change="onNumPerPageChange()" class="ng-pristine ng-valid"><option value="0">3</option><option value="1">5</option><option value="2" selected="selected">10</option><option value="3">20</option></select> 
+                      entries per page
+                  </span>
                 </div>
+                <div class="col-md-6 text-right pagination-container">
+                </div>
+              </div>
             </footer>
         </section>
 
