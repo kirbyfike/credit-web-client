@@ -1,7 +1,7 @@
 <div class="container">
-	<h1>Question {{question.question_id}}</h1>
-	
-	<form name="form_constraints" ng-model="question" class="form-validation" ng-submit="update(question)">
+  <h1>Question {{question.question_id}}</h1>
+  
+  <form name="form_constraints" ng-model="question" class="form-validation" ng-submit="update(question)">
       <div class="form-group">
         <label for="">Question Text</label>
         <input  type="text"
@@ -13,12 +13,12 @@
       <div class="form-group">
         <label for="">Trigger Finding On</label><br>
         <label>
-			    <input type="radio" ng-model="question.trigger_finding_on" value="Yes">
-			    Yes
-			  </label><br/>
-			  <label>
-        	<input type="radio" ng-model="question.trigger_finding_on" value="No">
-        	No
+          <input type="radio" ng-model="question.trigger_finding_on" value="Yes">
+          Yes
+        </label><br/>
+        <label>
+          <input type="radio" ng-model="question.trigger_finding_on" value="No">
+          No
         </label><br />
       </div>
 
@@ -74,5 +74,5 @@
               class="btn btn-success"
               ng-disabled="creatingProspect"
               >Update</button>
-	</form>
+  </form>
 </div>

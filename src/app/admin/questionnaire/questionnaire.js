@@ -30,10 +30,10 @@ angular.module( 'credit.admin.questionnaire', [
       templateUrl: 'app/admin/questionnaire/questionnaire.index.tpl.html',
       data:{ pageTitle: 'Model' }
     })
-    .state( 'adminQuestionnaire.edit', {
+    .state( 'adminQuestionnaire.questionsEdit', {
       url: '/:id/edit',
-      controller: 'AdminQuestionnaireEditCtrl',
-      templateUrl: 'app/admin/questionnaire/questionnaire.edit.tpl.html',
+      controller: 'AdminQuestionnaireQuestionsEditCtrl',
+      templateUrl: 'app/admin/questionnaire/questionnaire.questions.edit.tpl.html',
       data:{ pageTitle: 'Model' }
     })
     .state( 'adminQuestionnaire.categories', {
@@ -148,12 +148,14 @@ angular.module( 'credit.admin.questionnaire', [
   $scope.questionnaires = Questionnaire.get();
 })
 
-.controller( 'AdminQuestionnaireEditCtrl', function AdminQuestionnaireIndexCtrl($scope, $state, Question, $state) {
+.controller( 'AdminQuestionnaireQuestionsEditCtrl', function AdminQuestionnaireQuestionsEditCtrl($scope, $state, Question, $state) {
   $scope.question = Question.get({question_id:$state.params.id});
 
   $scope.update = function(question) {
     Question.update(question, function(response) {
-      
+      // run this code
+
+
     }, function(error) {
       $scope.error = error.data;
     });
