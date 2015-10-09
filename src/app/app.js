@@ -1,11 +1,9 @@
 (function () {
 	'use strict';
 
-	require('api-check');
 	require('angular');
 	require('angular-ui-router');
 	require('angular-resource');
-	require('angular-formly');
 
 	require('./login/login.js');
 	require('./admin/questionnaire/questionnaire.js');

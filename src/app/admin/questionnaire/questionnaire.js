@@ -153,10 +153,12 @@ angular.module( 'credit.admin.questionnaire', [
 
   $scope.update = function(question) {
     Question.update(question, function(response) {
-      $state.go("adminQuestionnaire.questions", {}, {reload: true});
+      
     }, function(error) {
       $scope.error = error.data;
     });
+
+    $state.go("adminQuestionnaire.questions", {}, {reload: true});
   };
 })
 
