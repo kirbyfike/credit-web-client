@@ -48,6 +48,12 @@ angular.module( 'credit.admin.questionnaire', [
       templateUrl: 'app/admin/questionnaire/questionnaire.categories.tpl.html',
       data:{ pageTitle: 'Model' }
     })
+    .state( 'adminQuestionnaire.categoryEdit',{
+      url: 'category/:id/edit',
+      controller: 'AdminQuestionnaireCategoryEditCtrl',
+      templateUrl:'app/admin/questionnaire/questionnaire.category.edit.tpl.html',
+      data:{ pageTitle: 'Model'}
+    })
     .state( 'adminQuestionnaire.questions', {
       url: '/questions',
       controller: 'AdminQuestionnaireQuestionsCtrl',
@@ -135,10 +141,24 @@ angular.module( 'credit.admin.questionnaire', [
 
 
   var LocalCategory = {
-    get: function() {
-      return JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
+    get: function(category) {
+      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
+
+      if ((typeof return_array != 'undefined') && category) {
+        var id = category.category_id;
+
+
+        for (var i = 0; i < return_array.length; i++) {
+          if (return_array[i].category_id == id) return return_array[i];
+        }
+      }
+
+      return return_array;
     },
     put: function(categories) {
+      return localStorage.setItem(STORAGE_ID, JSON.stringify(categories));
+    },
+    update: function(categories) {
       return localStorage.setItem(STORAGE_ID, JSON.stringify(categories));
     }
   };
@@ -198,7 +218,7 @@ angular.module( 'credit.admin.questionnaire', [
   };
 })
 
-.controller( 'AdminQuestionnaireQuestionsEditCtrl', function AdminQuestionnaireQuestionsEditCtrl($scope, $state, Question, $state) {
+.controller( 'AdminQuestionnaireQuestionsEditCtrl', function AdminQuestionnaireQuestionsEditCtrl($scope, $state, Question) {
   $scope.question = Question.get({question_id:$state.params.id});
 
   $scope.update = function(question) {
@@ -211,6 +231,22 @@ angular.module( 'credit.admin.questionnaire', [
     $state.go("adminQuestionnaire.questions", {}, {reload: true});
   };
 })
+
+.controller( 'AdminQuestionnaireCategoryEditCtrl', function AdminQuestionnaireCategoryEditCtrl($scope, $state, Category) {
+  $scope.category = Category.get({category_id:$state.params.id});
+  console.log($scope.category);
+
+  $scope.update = function(category){
+    Category.update(category, function(response) {
+
+    }, function(error) {
+      $scope.error = error.data;
+    });
+
+    $state.go("adminQuestionnaire.categories", {}, {reload: true});
+  };
+})
+
 
 .controller( 'AdminQuestionnaireNavCtrl', function AdminQuestionnaireNavCtrl($scope, $state) {
 })
