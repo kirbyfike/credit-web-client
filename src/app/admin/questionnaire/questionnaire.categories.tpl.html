@@ -1,44 +1,42 @@
 <div class="container">
-
-    <section class="panel panel-default">
-            <div class="panel-heading">
-              <strong><span class="glyphicon glyphicon-th"></span> Questions Master</strong>
-            </div>
-            <div class="table-filters">
-              <div class="row">
-                <div class="col-sm-4 col-xs-6">
-                  <form class="ng-pristine ng-valid">
-                    <input type="text" placeholder="search" class="form-control ng-pristine ng-valid" ng-model="searchText">
-                  </form>
-                </div>
-                <div class="col-sm-3 col-xs-6 filter-result-info">
-                  <span class="ng-binding">Showing x/x entries</span>              
-                </div>
-                <div>
-                  <button type="button" class="pull-right btn btn-primary btn-sm">Add Category</button>
-                </div>
-              </div>
-            </div>
-            <div class="panel-body">
-              <div class="table-wrapper">
-                <div class="scrollable">
-                  <table class="responsive table table-striped table-bordered">
-                    <thead>
-                      <tr>
-                        <th style="">Worksheet Name</th>
-                        <th>Category Name</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat="category in categories | filter:searchText">
-                          <td>{{category.worksheet_name}}</td>
-                          <td>{{category.category_name}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>            
-            </div>
-        </section>
-
+  <section class="panel panel-default">
+    <div class="panel-heading">
+      <strong><span class="glyphicon glyphicon-th"></span> Questions Master</strong>
+    </div>
+    <div class="table-filters">
+      <div class="row">
+        <div class="col-sm-4 col-xs-6">
+          <form class="ng-pristine ng-valid">
+            <input type="text" placeholder="search" class="form-control ng-pristine ng-valid" ng-model="searchText">
+          </form>
+        </div>
+        <div class="col-sm-3 col-xs-6 filter-result-info">
+          <span class="ng-binding">Showing x/x entries</span>              
+        </div>
+        <div>
+          <button type="button" class="pull-right btn btn-primary btn-sm">Add Category</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="table-wrapper">
+        <div class="scrollable">
+          <table class="responsive table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th style="">Worksheet Name</th>
+                <th>Category Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="category in categories | filter:searchText">
+                  <td>{{category.worksheet_name}}</td>
+                  <td>{{category.category_name}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>            
+    </div>
+  </section>
 </div>

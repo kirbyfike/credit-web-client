@@ -1,0 +1,78 @@
+<div class="container">
+  <h1>New Question</h1>
+  
+  <form ng-model="question" class="form-validation" ng-submit="create(question)">
+      <div class="form-group">
+        <label for="">Question Text</label>
+        <input  type="text"
+                class="form-control"
+                ng-model="question.question_text"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="">Trigger Finding On</label><br>
+        <label>
+          <input type="radio" ng-model="question.trigger_finding_on" value="Yes">
+          Yes
+        </label><br/>
+        <label>
+          <input type="radio" ng-model="question.trigger_finding_on" value="No">
+          No
+        </label><br />
+      </div>
+
+      <div class="form-group">
+        <label for="">Risk Category</label>
+        <input  type="text"
+                class="form-control"
+                ng-model="question.risk_category"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="">Finding Category</label>
+        <input  type="text"
+                class="form-control"
+                ng-model="question.finding_category"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="">Finding Sub Category</label>
+        <input  type="text"
+                class="form-control"
+                ng-model="question.finding_sub_category"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="">Finding Statement</label>
+        <input  type="text"
+                class="form-control"
+                ng-model="question.finding_statement"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="">Finding Comment Template</label>
+        <input  type="text"
+                class="form-control"
+                ng-model="question.finding_comment_template"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="">Risk Rating</label>
+        <input  type="text"
+                class="form-control"
+                ng-model="question.risk_rating"
+        >
+      </div>
+
+      <button type="submit"
+              class="btn btn-success"
+              ng-disabled="creatingProspect"
+              >Create</button>
+  </form>
+</div>
