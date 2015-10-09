@@ -25,14 +25,18 @@
                   <table class="responsive table table-striped table-bordered">
                     <thead>
                       <tr>
-                        <th style="">Worksheet Name</th>
+                        <th>Category</th>
+                        <th>Worksheet Name</th>
                         <th>Category Name</th>
+                        <th>Edit</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr ng-repeat="category in categories | filter:searchText">
+                          <td>{{category.category_id}}</td>
                           <td>{{category.worksheet_name}}</td>
                           <td>{{category.category_name}}</td>
+                          <td><a ui-sref="adminQuestionnaire.categoryEdit({id: category.category_id})" class="glyphicon glyphicon-pencil"></a></td>
                       </tr>
                     </tbody>
                   </table>
