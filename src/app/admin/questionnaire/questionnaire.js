@@ -60,6 +60,12 @@ angular.module( 'credit.admin.questionnaire', [
       templateUrl:'app/admin/questionnaire/questionnaire.category.edit.tpl.html',
       data:{ pageTitle: 'Model'}
     })
+    .state( 'adminQuestionnaire.categoryNew', {
+      url: '/category/new',
+      controller: 'AdminQuestionnaireCategoryNewCtrl',
+      templateUrl: 'app/admin/questionnaire/questionnaire.category.new.tpl.html',
+      data:{ pageTitle: 'Model' }
+    })
     .state( 'adminQuestionnaire.questions', {
       url: '/questions',
       controller: 'AdminQuestionnaireQuestionsCtrl',
