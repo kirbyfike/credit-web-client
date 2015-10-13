@@ -30,8 +30,14 @@ angular.module( 'credit.admin.questionnaire', [
       templateUrl: 'app/admin/questionnaire/questionnaire.index.tpl.html',
       data:{ pageTitle: 'Model' }
     })
-    .state( 'adminQuestionnaire.questionsEdit', {
+    .state( 'adminQuestionnaire.edit', {
       url: '/:id/edit',
+      controller: 'AdminQuestionnaireEditCtrl',
+      templateUrl: 'app/admin/questionnaire/questionnaire.edit.tpl.html',
+      data:{ pageTitle: 'Model' }
+    })
+    .state( 'adminQuestionnaire.questionsEdit', {
+      url: '/questions/:id/edit',
       controller: 'AdminQuestionnaireQuestionsEditCtrl',
       templateUrl: 'app/admin/questionnaire/questionnaire.questions.edit.tpl.html',
       data:{ pageTitle: 'Model' }
@@ -179,16 +185,62 @@ angular.module( 'credit.admin.questionnaire', [
   STORAGE_ID = 'questionnaires';
   DEMO_QUESTIONNAIRES = require('./questionnaire.json');
 
+
   var LocalQuestionnaire = {
-    get: function() {
-      return JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONNAIRES;
+    get: function(questionnaire) {
+      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONNAIRES;
+
+      if ((typeof return_array != 'undefined') && questionnaire) {
+        var id = questionnaire.questionnaire_id;
+
+        for (var i = 0; i < return_array.length; i++) {
+          if (return_array[i].questionnaire_id == id) return return_array[i];
+        }
+      }
+
+      return return_array;
     },
     put: function(questionnaires) {
-      return localStorage.setItem(STORAGE_ID, JSON.stringify(tasks));
+      return localStorage.setItem(STORAGE_ID, JSON.stringify(questions));
+    },
+    update: function(questionnaire) {
+
+      var questionnaire_id = questionnaire.questionnaire_id;
+      
+      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONNAIRES;
+
+      if ((typeof return_array != 'undefined') && questionnaire) {
+        var id = questionnaire.questionnaire_id;
+
+        for (var i = 0; i < return_array.length; i++) {
+          if (return_array[i].questionnaire_id == id) {
+            return_array[i] = questionnaire;
+
+            localStorage.setItem(STORAGE_ID, JSON.stringify(return_array));
+
+            return return_array[i];
+          }
+        }
+      }
+    },
+    save: function(questionnaire) {
+
+      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONNAIRES;
+      var ids = [];
+
+      for (var i = 0; i < return_array.length; i++) {
+        ids.push(return_array[i].questionnaire_id);
+      }
+
+      var largest = Math.max.apply(Math, ids);
+      questionnaire.questionnaire_id = largest + 1;
+      return_array.push(questionnaire);
+
+      return localStorage.setItem(STORAGE_ID, JSON.stringify(return_array));
     }
   };
 
-  var Questionnaire = $resource(URLHOST + "/questionnaires/:id.json", {id:'@id'}, {
+  var Questionnaire = $resource(URLHOST + "/Question/:id.json", {id:'@id'}, {
     update: { 
         method: 'PUT', 
         params: { id: '@id' }
@@ -216,6 +268,20 @@ angular.module( 'credit.admin.questionnaire', [
 
     $state.go("adminQuestionnaire.questions", {}, {reload: true});
   };
+})
+
+.controller( 'AdminQuestionnaireEditCtrl', function AdminQuestionnaireEditCtrl($scope, $state, Questionnaire) {
+  // $scope.question = Question.get({question_id:$state.params.id});
+
+  // $scope.update = function(question) {
+  //   Question.update(question, function(response) {
+
+  //   }, function(error) {
+  //     $scope.error = error.data;
+  //   });
+
+  //   $state.go("adminQuestionnaire.questions", {}, {reload: true});
+  // };
 })
 
 .controller( 'AdminQuestionnaireQuestionsEditCtrl', function AdminQuestionnaireQuestionsEditCtrl($scope, $state, Question) {
