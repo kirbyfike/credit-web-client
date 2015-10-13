@@ -46,10 +46,11 @@
     .panel-top {
         padding: 30px 20px;
         @include border-top-radius ($border-radius-base);
+        @include border-bottom-radius ($border-radius-base);
     }
     .panel-bottom {
-        padding: 10px;
         @include border-bottom-radius ($border-radius-base);
+        padding: 10px;
 
         p {
             margin: 0;
@@ -168,3 +169,4 @@
         }
     }
 }
+
