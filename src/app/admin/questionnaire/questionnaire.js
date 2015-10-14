@@ -1,6 +1,6 @@
 angular.module( 'credit.admin.questionnaire', [
   'ui.router.state',
-  'ngResource'
+  'ngResource', 'xeditable'
 ])
 
 .config(function config( $stateProvider ) {
