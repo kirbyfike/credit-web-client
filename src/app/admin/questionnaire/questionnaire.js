@@ -1,7 +1,3 @@
-angular.module( 'credit.admin.questionnaire', [
-  'ui.router.state',
-  'ngResource', 'xeditable'
-])
 
 .config(function config( $stateProvider ) {
   $stateProvider
@@ -36,18 +32,7 @@ angular.module( 'credit.admin.questionnaire', [
       templateUrl: 'app/admin/questionnaire/questionnaire.edit.tpl.html',
       data:{ pageTitle: 'Model' }
     })
-    .state( 'adminQuestionnaire.questionsEdit', {
-      url: '/questions/:id/edit',
-      controller: 'AdminQuestionnaireQuestionsEditCtrl',
-      templateUrl: 'app/admin/questionnaire/questionnaire.questions.edit.tpl.html',
-      data:{ pageTitle: 'Model' }
-    })
-    .state( 'adminQuestionnaire.questionsNew', {
-      url: '/questions/new',
-      controller: 'AdminQuestionnaireQuestionsNewCtrl',
-      templateUrl: 'app/admin/questionnaire/questionnaire.questions.new.tpl.html',
-      data:{ pageTitle: 'Model' }
-    })
+    
     .state( 'adminQuestionnaire.categories', {
       url: '/categories',
       controller: 'AdminQuestionnaireCategoriesCtrl',
