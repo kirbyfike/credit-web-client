@@ -325,11 +325,50 @@ angular.module( 'credit.admin.questionnaire', [
 
 .controller( 'AdminQuestionnaireCategoriesCtrl', function AdminQuestionnaireCategoriesCtrl($scope, $state, Category) {
   $scope.categories = Category.get();
+
+
+  // remove category
+  $scope.removeCategory = function(index) {
+    $scope.categories.splice(index, 1);
+  };
+    // add category
+  $scope.addCategory = function() {
+    $scope.inserted = {
+      category_id: $scope.categories.length+1,
+      worksheet_name: '',
+      category_name: null,
+    };
+    $scope.categories.push($scope.inserted);
+  };
+
+
 })
 
 
 
 .controller( 'AdminQuestionnaireQuestionsCtrl', function AdminQuestionnaireQuestionsCtrl($scope, $state, Question) {
   $scope.questions = Question.get();
+
+  // remove question
+  $scope.removeQuestion = function(index) {
+    $scope.questions.splice(index, 1);
+  };
+    // add question
+  $scope.addQuestion = function() {
+    $scope.inserted = {
+      question_id: $scope.questions.length+1,
+      question_text: '',
+      trigger_finding_on: null,
+      risk_category: null,
+      finding_category: null,
+      finding_sub_category: null,
+      finding_statement: null,
+      finding_comment_template: null,
+      risk_rating: null,
+    };
+    $scope.questions.push($scope.inserted);
+  };
+
+
 })
 ;

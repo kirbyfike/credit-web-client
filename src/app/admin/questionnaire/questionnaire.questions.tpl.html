@@ -17,7 +17,8 @@
                   <span class="ng-binding">Showing x/x entries</span>              
                 </div>
                 <div>
-                  <a ui-sref="adminQuestionnaire.questionsNew" style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Add Question</a>
+                  <!-- <a ui-sref="adminQuestionnaire.questionsNew" style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Add Question</a> -->
+                  <a ng-click="addQuestion()" style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Add Question</a>
                 </div>
               </div>
             </div>
@@ -115,7 +116,7 @@
                       </form>
                       <div class="buttons" ng-show="!rowform.$visible">
                         <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
-                        <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
+                        <button class="btn btn-danger" ng-click="removeQuestion($index)">del</button>
                       </div>  
                     </td>
                 </tr>
