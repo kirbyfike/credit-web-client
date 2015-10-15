@@ -37,12 +37,12 @@
                       <tr ng-repeat="category in categories | filter:searchText">
                           <td >{{category.category_id}}</td>
                           <td>
-                            <span editable-text="category.worksheet_name" e-name="worksheetname" e-form="rowform" e-required>
+                            <span editable-text="category.worksheet_name" e-name="worksheetname" e-form="rowform" ng-hide="staticform" e-required>
                               {{category.worksheet_name}}
                             </span>
                           </td>
                           <td>
-                            <span editable-text="category.category_name" e-name="categoryname" e-form="rowform">
+                            <span editable-text="category.category_name" e-name="categoryname" e-form="rowform" ng-hide="staticform" >
                               {{category.category_name}}
                             </span>
                           </td>
@@ -51,15 +51,15 @@
                           <td style="white-space: nowrap">
                             <!-- form -->
                             <form editable-form name="rowform" onbeforesave="saveUser($data, category.category_id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == category">
-                              <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                              <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary" ng-click="staticform = false">
                                 save
                               </button>
-                              <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                              <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); staticform = false" class="btn btn-default">
                                 cancel
                               </button>
                             </form>
                             <div class="buttons" ng-show="!rowform.$visible">
-                              <button class="btn btn-primary" ng-click="rowform.$show(); name.$hide()">edit</button>
+                              <button class="btn btn-primary" ng-click="rowform.$show(); staticform = true">edit</button>
                               <button class="btn btn-danger" ng-click="removeCategory($index)">del</button>
                             </div>  
                           </td>
