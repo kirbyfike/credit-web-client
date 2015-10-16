@@ -1,0 +1,142 @@
+<div class="container">
+
+    <section class="panel panel-default table-dynamic">
+            <div class="panel-heading">
+            <div style="color: #345DBB; text-align:center;"class="panel-heading">
+              <h1>Questions Master</h1>
+            </div>
+            </div>
+            <div class="table-filters">
+              <div style="margin-top: 2%;" class="row">
+                <div class="col-sm-4 col-xs-6">
+                  <form class="ng-pristine ng-valid">
+                    <input type="text" placeholder="search" class="form-control ng-pristine ng-valid" ng-model="searchText">
+                  </form>
+                </div>
+                <div class="col-sm-3 col-xs-6 filter-result-info">
+                  <span class="ng-binding">Showing x/x entries</span>              
+                </div>
+                <div>
+                  <!-- <a ui-sref="adminQuestionnaire.questionsNew" style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Add Question</a> -->
+                  <a ng-click="addQuestion()" style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Add Question</a>
+                </div>
+              </div>
+            </div>
+
+            <table class="table table-bordered table-striped table-responsive">
+              <thead>
+                <tr>
+                  <th>
+                    <div class="th">Question #</div>
+                  </th>
+                  <th>
+                    <div class="th">Question Text</div>
+                  </th>
+                  <th>
+                    <div class="th">Trigger Finding On</div>
+                  </th>
+                  <th>
+                    <div class="th">Risk Category</div>
+                  </th>
+                  <th>
+                    <div class="th">Finding Category</div>
+                  </th>
+                  <th>
+                    <div class="th">Finding Sub-Category</div>
+                  </th>
+                  <th>
+                    <div class="th">Finding Statement</div>
+                  </th>
+                  <th>
+                    <div class="th">Finding Comment Template</div>
+                  </th>
+                  <th>
+                    <div class="th">Risk Rating</div>
+                  </th>
+                  <th>
+                    <div class="th">Edit</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+    
+                <tr ng-repeat="question in questions | filter:searchText">
+                    <td >{{question.question_id}}</td>
+                    <td>
+                      <span editable-text="question.question_text" e-name="questionText" ng-hide="staticform" e-form="rowform" e-required>
+                        {{question.question_text}}
+                      </span>
+                    </td>
+                    <td>
+                      <span editable-text="question.trigger_finding_on" e-name="triggerFinding" ng-hide="staticform" e-form="rowform">
+                        {{question.trigger_finding_on}}
+                      </span>
+                    </td>
+                    <td>
+                      <span editable-text="question.risk_category" e-name="riskCategory" ng-hide="staticform" e-form="rowform">
+                        {{question.risk_category}}
+                      </span>
+                    </td>
+                    <td>
+                      <span editable-text="question.finding_category" e-name="findingCategory" ng-hide="staticform" e-form="rowform">
+                        {{question.finding_category}}
+                      </span>
+                    </td>
+                    <td>
+                      <span editable-text="question.finding_sub_category" e-name="findingSub" ng-hide="staticform" e-form="rowform">
+                        {{question.finding_sub_category}}
+                      </span>
+                    </td>
+                    <td>
+                      <span editable-text="question.finding_statement" e-name="findingStatement" ng-hide="staticform" e-form="rowform">
+                        {{question.finding_statement}}
+                      </span>
+                    </td>
+                    <td>
+                      <span editable-text="question.finding_comment_template" e-name="findingComment" ng-hide="staticform" e-form="rowform">
+                        {{question.finding_comment_template}}
+                      </span>
+                    </td>
+                    <td>
+                      <span editable-text="question.risk_rating" e-name="riskRating" ng-hide="staticform" e-form="rowform">
+                        {{question.risk_rating}}
+                      </span>
+                    </td>
+          
+
+                    <td style="white-space: nowrap">
+                      <!-- form -->
+                      <form editable-form name="rowform" onbeforesave="saveUser($data, question.question_id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == question">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary" ng-click="staticform = false">
+                          save
+                        </button>
+                        <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); staticform = false" class="btn btn-default">
+                          cancel
+                        </button>
+                      </form>
+                      <div class="buttons" ng-show="!rowform.$visible">
+                        <button class="btn btn-primary" ng-click="rowform.$show(); staticform = true">edit</button>
+                        <button class="btn btn-danger" ng-click="removeQuestion($index)">del</button>
+                      </div>  
+                    </td>
+                </tr>
+
+              </tbody>
+            </table>
+
+            <footer class="table-footer">
+              <div class="row">
+                <div class="col-md-6 page-num-info">
+                  <span>
+                      Show 
+                      <select data-ng-model="numPerPage" data-ng-options="num for num in numPerPageOpt" data-ng-change="onNumPerPageChange()" class="ng-pristine ng-valid"><option value="0">3</option><option value="1">5</option><option value="2" selected="selected">10</option><option value="3">20</option></select> 
+                      entries per page
+                  </span>
+                </div>
+                <div class="col-md-6 text-right pagination-container">
+                </div>
+              </div>
+            </footer>
+        </section>
+
+</div>
