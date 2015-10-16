@@ -4,18 +4,6 @@ angular.module( 'credit.admin.questionnaire.questions', [
 ])
 .config(function config( $stateProvider ) {
   $stateProvider
-  .state( 'adminQuestionnaire.questionsEdit', {
-    url: '/questions/:id/edit',
-    controller: 'AdminQuestionnaireQuestionsEditCtrl',
-    templateUrl: 'app/admin/questionnaire/questions/questionnaire.questions.edit.tpl.html',
-    data:{ pageTitle: 'Model' }
-  })
-  .state( 'adminQuestionnaire.questionsNew', {
-    url: '/questions/new',
-    controller: 'AdminQuestionnaireQuestionsNewCtrl',
-    templateUrl: 'app/admin/questionnaire/questions/questionnaire.questions.new.tpl.html',
-    data:{ pageTitle: 'Model' }
-  })
   .state( 'adminQuestionnaire.questions', {
     url: '/questions',
     controller: 'AdminQuestionnaireQuestionsCtrl',
@@ -97,50 +85,31 @@ angular.module( 'credit.admin.questionnaire.questions', [
   return (URLHOST == "localhost:8888") ? LocalQuestion : Question;
 })
 
+.controller( 'AdminQuestionnaireQuestionsCtrl', function AdminQuestionnaireQuestionsCtrl($scope, $state, Question) {
+  $scope.questions = Question.get();
 
-/**
- * And of course we define a controller for our route.
- */
- .controller( 'AdminQuestionnaireQuestionsEditCtrl', function AdminQuestionnaireQuestionsEditCtrl($scope, $state, Question) {
-   $scope.question = Question.get({question_id:$state.params.id});
-
-   $scope.update = function(question) {
-     Question.update(question, function(response) {
-
-     }, function(error) {
-       $scope.error = error.data;
-     });
-
-     $state.go("adminQuestionnaire.questions", {}, {reload: true});
+  // remove question
+  $scope.removeQuestion = function(index) {
+   $scope.questions.splice(index, 1);
+  };
+   // add question
+  $scope.addQuestion = function() {
+   $scope.inserted = {
+     question_id: $scope.questions.length+1,
+     question_text: '',
+     trigger_finding_on: null,
+     risk_category: null,
+     finding_category: null,
+     finding_sub_category: null,
+     finding_statement: null,
+     finding_comment_template: null,
+     risk_rating: null,
    };
- })
+   $scope.questions.push($scope.inserted);
+  };
 
 
- .controller( 'AdminQuestionnaireQuestionsCtrl', function AdminQuestionnaireQuestionsCtrl($scope, $state, Question) {
-   $scope.questions = Question.get();
-
-   // remove question
-   $scope.removeQuestion = function(index) {
-     $scope.questions.splice(index, 1);
-   };
-     // add question
-   $scope.addQuestion = function() {
-     $scope.inserted = {
-       question_id: $scope.questions.length+1,
-       question_text: '',
-       trigger_finding_on: null,
-       risk_category: null,
-       finding_category: null,
-       finding_sub_category: null,
-       finding_statement: null,
-       finding_comment_template: null,
-       risk_rating: null,
-     };
-     $scope.questions.push($scope.inserted);
-   };
-
-
- })
- ;
+})
+;
 
 

@@ -36,61 +36,6 @@ angular.module( 'credit.admin.questionnaire', [
   })
 })
 
-.factory('QuestionnaireQuestion', function ($resource, URLHOST)  {
-  var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/questionnaire_question.json" : "/questionnaire_question.json";
-  STORAGE_ID = 'questionnaire_questions';
-  DEMO_QUESTIONNAIRE_QUESTIONS = require('./questionnaire_question.json');
-
-
-  var LocalQuestionnaireQuestion = {
-    get: function(requestObject) {
-      
-      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONNAIRE_QUESTIONS;
-
-      var new_array = [];
-
-      if (requestObject.question_id) {
-        var question_id = requestObject.question_id;
-
-        var questionnaire_id = requestObject.questionnaire_id;
-
-        for (var i = 0; i < return_array.length; i++) {
-          if (return_array[i].id == question_id && return_array[i].questionnaire_id == questionnaire_id) {
-            new_array = return_array[i];
-          }
-        }
-
-      } else if ((typeof return_array != 'undefined')) {
-        var parent_id = requestObject.parent_id;
-
-        var questionnaire_id = requestObject.questionnaire_id;
-
-        for (var i = 0; i < return_array.length; i++) {
-          if (return_array[i].parent_id == parent_id && return_array[i].questionnaire_id == questionnaire_id) {
-            new_array.push(return_array[i]);
-          }
-        }
-      }
-
-      return new_array;
-    },
-    update: function(questionnaire_question) {
-    },
-    save: function(questionnaire) {
-    }
-  };
-
-  var QuestionnaireQuestion = $resource(URLHOST + "/Question/:id.json", {id:'@id'}, {
-    update: { 
-        method: 'PUT', 
-        params: { id: '@id' }
-    },
-    remove: {method:'DELETE'}
-  });
-
-  return (URLHOST == "localhost:8888") ? LocalQuestionnaireQuestion : QuestionnaireQuestion;
-})
-
 .controller('AdminQuestionnaireCtrl', function AdminQuestionnaireCtrl($scope, $state) {
 })
 ;
