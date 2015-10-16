@@ -38,8 +38,41 @@ angular.module( 'credit.admin.questionnaire.categories', [
       return localStorage.setItem(STORAGE_ID, JSON.stringify(categories));
     },
     update: function(categories) {
-      return localStorage.setItem(STORAGE_ID, JSON.stringify(categories));
-    }
+      // return localStorage.setItem(STORAGE_ID, JSON.stringify(categories));
+    
+        var category_id = category.category_id;
+        
+        var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
+
+        if ((typeof return_array != 'undefined') && category) {
+          var id = category.category_id;
+
+          for (var i = 0; i < return_array.length; i++) {
+            if (return_array[i].category_id == id) {
+              return_array[i] = category;
+
+              localStorage.setItem(STORAGE_ID, JSON.stringify(return_array));
+
+              return return_array[i];
+            }
+          }
+        }
+      },
+      save: function(category) {
+
+        var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
+        var ids = [];
+
+        for (var i = 0; i < return_array.length; i++) {
+          ids.push(return_array[i].category_id);
+        }
+
+        var largest = Math.max.apply(Math, ids);
+        category.category_id = largest + 1;
+        return_array.push(category);
+
+        return localStorage.setItem(STORAGE_ID, JSON.stringify(return_array));
+      }
   };
 
   var Category = $resource(URLHOST + "/category/:id.json", {id:'@id'}, {
@@ -73,6 +106,26 @@ angular.module( 'credit.admin.questionnaire.categories', [
     };
 
     $scope.categories.push($scope.inserted);
+  };
+
+  $scope.updateCategory = function(index){
+    Category.update(category, function(response) {
+
+    }, function(error) {
+      $scope.error = error.data;
+    });
+
+    $state.go("adminQuestionnaire.categories", {}, {reload: true});
+  };
+
+  $scope.saveCategory = function(index){
+    Category.save(category, function(response) {
+
+    }, function(error) {
+      $scope.error = error.data;
+    });
+
+    $state.go("adminQuestionnaire.categories", {}, {reload: true});
   };
 })
 ;
