@@ -2,30 +2,16 @@ angular.module( 'credit.admin.questionnaire.categories', [
   'ui.router.state',
   'ngResource', 'xeditable'
 ])
+
 .config(function config( $stateProvider ) {
   $stateProvider
   .state( 'adminQuestionnaire.categories', {
     url: '/categories',
     controller: 'AdminQuestionnaireCategoriesCtrl',
-    templateUrl: 'app/admin/questionnaire/categories/questionnaire.categories.tpl.html',
-    data:{ pageTitle: 'Model' }
-  })
-  .state( 'adminQuestionnaire.categoryEdit',{
-    url: 'category/:id/edit',
-    controller: 'AdminQuestionnaireCategoryEditCtrl',
-    templateUrl:'app/admin/questionnaire/categories/questionnaire.category.edit.tpl.html',
-    data:{ pageTitle: 'Model'}
-  })
-  .state( 'adminQuestionnaire.categoryNew', {
-    url: '/category/new',
-    controller: 'AdminQuestionnaireCategoryNewCtrl',
-    templateUrl: 'app/admin/questionnaire/categories/questionnaire.category.new.tpl.html',
+    templateUrl: 'app/admin/questionnaire/categories/categories.tpl.html',
     data:{ pageTitle: 'Model' }
   });
 })
-
-
-// FACTORY
 
 .factory('Category', function ($resource, URLHOST)  {
   var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/data/category.json" : "/category.json";
@@ -67,44 +53,24 @@ angular.module( 'credit.admin.questionnaire.categories', [
   return (URLHOST == "localhost:8888") ? LocalCategory : Category;
 })
 
+.controller( 'AdminQuestionnaireCategoriesCtrl', function AdminQuestionnaireCategoriesCtrl($scope, $state, Category) {
+  $scope.categories = Category.get();
 
+  // remove category
+  $scope.removeCategory = function(index) {
+   $scope.categories.splice(index, 1);
+  };
 
-/**
- * And of course we define a controller for our route.
- */
+  // add category
+  $scope.addCategory = function() {
 
- .controller( 'AdminQuestionnaireCategoriesCtrl', function AdminQuestionnaireCategoriesCtrl($scope, $state, Category) {
-   $scope.categories = Category.get();
+    $scope.inserted = {
+     category_id: $scope.categories.length+1,
+     worksheet_name: '',
+     category_name: null,
+    };
 
-
-   // remove category
-   $scope.removeCategory = function(index) {
-     $scope.categories.splice(index, 1);
-   };
-     // add category
-   $scope.addCategory = function() {
-     $scope.inserted = {
-       category_id: $scope.categories.length+1,
-       worksheet_name: '',
-       category_name: null,
-     };
-     $scope.categories.push($scope.inserted);
-   };
-
-
- })
- .controller( 'AdminQuestionnaireCategoryEditCtrl', function AdminQuestionnaireCategoryEditCtrl($scope, $state, Category) {
-   $scope.category = Category.get({category_id:$state.params.id});
-   console.log($scope.category);
-
-   $scope.update = function(category){
-     Category.update(category, function(response) {
-
-     }, function(error) {
-       $scope.error = error.data;
-     });
-
-     $state.go("adminQuestionnaire.categories", {}, {reload: true});
-   };
- })
+    $scope.categories.push($scope.inserted);
+  };
+})
 ;

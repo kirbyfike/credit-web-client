@@ -7,10 +7,7 @@
 	require('angular-xeditable');
 
 	require('./login/login.js');
-	require('./admin/questionnaire/categories/categories.js');
-	require('./admin/questionnaire/questions/questions.js');
-	require('./admin/questionnaire/questionnaire/questionnaire.js');
-	require('./admin/questionnaire/nav/nav.js');
+	require('./admin/questionnaire/questionnaire.js');
 	require('./shared/nav/nav.js');
 	require('./shared/header/header.js');
 
@@ -19,9 +16,7 @@
 	  'credit.login',
 	  'credit.shared.nav',
 	  'credit.shared.header',
-	  'credit.admin.questionnaire.questionnaire',
-	  'credit.admin.questionnaire.questions',
-	  'credit.admin.questionnaire.categories',
+	  'credit.admin.questionnaire',
 	  'ui.router'
 	])
 

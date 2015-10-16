@@ -107,7 +107,7 @@
                     <td style="white-space: nowrap">
                       <!-- form -->
                       <form editable-form name="rowform" onbeforesave="saveUser($data, question.question_id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == question">
-                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary" ng-clicl="staticform = false">
+                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary" ng-click="staticform = false">
                           save
                         </button>
                         <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); staticform = false" class="btn btn-default">
