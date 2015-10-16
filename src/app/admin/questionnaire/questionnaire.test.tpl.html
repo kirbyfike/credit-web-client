@@ -1,0 +1,50 @@
+<div class="container">
+  <h1>Question {{question.question_id}}</h1>
+</div>
+
+
+<table class="table table-bordered table-striped table-responsive">
+  <thead>
+    <tr>
+      <th>
+        <div class="th">Question #</div>
+      </th>
+      <th>
+        <div class="th">Question Text</div>
+      </th>
+      <th>
+        <div class="th">Trigger Finding On</div>
+      </th>
+      <th>
+        <div class="th">Risk Category</div>
+      </th>
+      <th>
+        <div class="th">Finding Category</div>
+      </th>
+      <th>
+        <div class="th">Finding Sub-Category</div>
+      </th>
+      <th>
+        <div class="th">Finding Statement</div>
+      </th>
+      <th>
+        <div class="th">Finding Comment Template</div>
+      </th>
+      <th>
+        <div class="th">Risk Rating</div>
+      </th>
+      <th>
+        <div class="th">Edit</div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="question in questions | filter:searchText">
+      <td>1</td>
+      <td editable-text="question.question_text">{{question.question_text}}</td>
+      <td>
+        <i class="glyphicon glyphicon-pencil"></i>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "compass-mixins": "~1.0.2",
-    "api-check": "~7.5.3"
+    "api-check": "~7.5.3",
+    "angular-xeditable": "~0.1.9"
   }
 }

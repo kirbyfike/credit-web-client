@@ -1,6 +1,7 @@
 angular.module( 'credit.admin.questionnaire', [
   'ui.router.state',
-  'ngResource'
+  'ngResource',
+  'xeditable'
 ])
 
 .config(function config( $stateProvider ) {
@@ -30,16 +31,16 @@ angular.module( 'credit.admin.questionnaire', [
       templateUrl: 'app/admin/questionnaire/questionnaire.index.tpl.html',
       data:{ pageTitle: 'Model' }
     })
-    .state( 'adminQuestionnaire.edit', {
-      url: '/:id/edit',
-      controller: 'AdminQuestionnaireEditCtrl',
-      templateUrl: 'app/admin/questionnaire/questionnaire.edit.tpl.html',
-      data:{ pageTitle: 'Model' }
-    })
     .state( 'adminQuestionnaire.questionsEdit', {
       url: '/questions/:id/edit',
       controller: 'AdminQuestionnaireQuestionsEditCtrl',
       templateUrl: 'app/admin/questionnaire/questionnaire.questions.edit.tpl.html',
+      data:{ pageTitle: 'Model' }
+    })
+    .state( 'adminQuestionnaire.test', {
+      url: '/test',
+      controller: 'AdminQuestionnaireTestCtrl',
+      templateUrl: 'app/admin/questionnaire/questionnaire.test.tpl.html',
       data:{ pageTitle: 'Model' }
     })
     .state( 'adminQuestionnaire.questionsNew', {
@@ -66,6 +67,19 @@ angular.module( 'credit.admin.questionnaire', [
       templateUrl: 'app/admin/questionnaire/questionnaire.questions.tpl.html',
       data:{ pageTitle: 'Model' }
     })
+    .state( 'adminQuestionnaire.show', {
+      url: '/:questionnaire_id',
+      controller: 'AdminQuestionnaireShowCtrl',
+      templateUrl: 'app/admin/questionnaire/questionnaire.show.tpl.html',
+      data:{ pageTitle: 'Model' }
+    })
+    .state( 'adminQuestionnaire.questionnaireEditQuestion', {
+      url: '/:questionnaire_id/question/:question_id/edit',
+      controller: 'AdminQuestionnaireEditQuestionCtrl',
+      templateUrl: 'app/admin/questionnaire/questionnaire.edit.tpl.html',
+      data:{ pageTitle: 'Model' }
+    })
+
     ;
 })
 
@@ -194,7 +208,7 @@ angular.module( 'credit.admin.questionnaire', [
         var id = questionnaire.questionnaire_id;
 
         for (var i = 0; i < return_array.length; i++) {
-          if (return_array[i].questionnaire_id == id) return return_array[i];
+          if (return_array[i].id == id) return return_array[i];
         }
       }
 
@@ -251,37 +265,97 @@ angular.module( 'credit.admin.questionnaire', [
   return (URLHOST == "localhost:8888") ? LocalQuestionnaire : Questionnaire;
 })
 
-.controller( 'AdminQuestionnaireCtrl', function AdminQuestionnaireCtrl($scope, $state) {
+.factory('QuestionnaireQuestion', function ($resource, URLHOST)  {
+  var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/questionnaire_question.json" : "/questionnaire_question.json";
+  STORAGE_ID = 'questionnaire_questions';
+  DEMO_QUESTIONNAIRE_QUESTIONS = require('./questionnaire_question.json');
+
+
+  var LocalQuestionnaireQuestion = {
+    get: function(requestObject) {
+      
+      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONNAIRE_QUESTIONS;
+
+      var new_array = [];
+
+      if (requestObject.question_id) {
+        var question_id = requestObject.question_id;
+
+        var questionnaire_id = requestObject.questionnaire_id;
+
+        for (var i = 0; i < return_array.length; i++) {
+          if (return_array[i].id == question_id && return_array[i].questionnaire_id == questionnaire_id) {
+            new_array = return_array[i];
+          }
+        }
+
+      } else if ((typeof return_array != 'undefined')) {
+        var parent_id = requestObject.parent_id;
+
+        var questionnaire_id = requestObject.questionnaire_id;
+
+        for (var i = 0; i < return_array.length; i++) {
+          if (return_array[i].parent_id == parent_id && return_array[i].questionnaire_id == questionnaire_id) {
+            new_array.push(return_array[i]);
+          }
+        }
+      }
+
+      return new_array;
+    },
+    update: function(questionnaire_question) {
+    },
+    save: function(questionnaire) {
+    }
+  };
+
+  var QuestionnaireQuestion = $resource(URLHOST + "/Question/:id.json", {id:'@id'}, {
+    update: { 
+        method: 'PUT', 
+        params: { id: '@id' }
+    },
+    remove: {method:'DELETE'}
+  });
+
+  return (URLHOST == "localhost:8888") ? LocalQuestionnaireQuestion : QuestionnaireQuestion;
 })
 
-.controller( 'AdminQuestionnaireIndexCtrl', function AdminQuestionnaireIndexCtrl($scope, $state, Questionnaire) {
+.controller('AdminQuestionnaireCtrl', function AdminQuestionnaireCtrl($scope, $state) {
+})
+
+.controller('AdminQuestionnaireIndexCtrl', function AdminQuestionnaireIndexCtrl($scope, $state, Questionnaire) {
   $scope.questionnaires = Questionnaire.get();
 })
 
-.controller( 'AdminQuestionnaireQuestionsNewCtrl', function AdminQuestionnaireQuestionsEditCtrl($scope, $state, Question) {
-  $scope.question = {};
+.controller('AdminQuestionnaireShowCtrl', function AdminQuestionnaireShowCtrl($scope, $state, Questionnaire, QuestionnaireQuestion) {
+  $scope.questionnaire = Questionnaire.get({questionnaire_id:$state.params.questionnaire_id});
+  $scope.questionnaire_questions = QuestionnaireQuestion.get({parent_id: 0, questionnaire_id: $state.params.questionnaire_id});
 
-  $scope.create = function(question) {
-    Question.save(question, function() {
+  $scope.showAddForm = false;
+  $scope.questions = $scope.questionnaire.questions;
 
-    });
 
-    $state.go("adminQuestionnaire.questions", {}, {reload: true});
-  };
+  $scope.showAddQuestionForm = function() {
+    $scope.newQuestion = {question_text: ""};
+    $scope.showAddForm = true;
+  }
+
+  $scope.createQuestion = function(newQuestion) {
+    $scope.questions.push(newQuestion);
+  }
 })
 
-.controller( 'AdminQuestionnaireEditCtrl', function AdminQuestionnaireEditCtrl($scope, $state, Questionnaire) {
-  // $scope.question = Question.get({question_id:$state.params.id});
+.controller( 'AdminQuestionnaireEditQuestionCtrl', function AdminQuestionnaireEditQuestionCtrl($scope, $state, Questionnaire, QuestionnaireQuestion) {
+  $scope.questionnaire = Questionnaire.get({questionnaire_id:$state.params.questionnaire_id});
+  
+  $scope.main_question = QuestionnaireQuestion.get({question_id: $state.params.question_id, questionnaire_id: $state.params.questionnaire_id});
 
-  // $scope.update = function(question) {
-  //   Question.update(question, function(response) {
+  $scope.questionnaire_questions = QuestionnaireQuestion.get({parent_id: $state.params.question_id, questionnaire_id: $state.params.questionnaire_id});
 
-  //   }, function(error) {
-  //     $scope.error = error.data;
-  //   });
+  $scope.addOtherQuestions = function(answer) {
+    $scope.main_question.trigger_on = answer;
+  };
 
-  //   $state.go("adminQuestionnaire.questions", {}, {reload: true});
-  // };
 })
 
 .controller( 'AdminQuestionnaireQuestionsEditCtrl', function AdminQuestionnaireQuestionsEditCtrl($scope, $state, Question) {
@@ -298,9 +372,12 @@ angular.module( 'credit.admin.questionnaire', [
   };
 })
 
+.controller( 'AdminQuestionnaireTestCtrl', function AdminQuestionnaireTestCtrl($scope, $state, Question) {
+  $scope.questions = Question.get();
+})
+
 .controller( 'AdminQuestionnaireCategoryEditCtrl', function AdminQuestionnaireCategoryEditCtrl($scope, $state, Category) {
   $scope.category = Category.get({category_id:$state.params.id});
-  console.log($scope.category);
 
   $scope.update = function(category){
     Category.update(category, function(response) {
@@ -320,8 +397,6 @@ angular.module( 'credit.admin.questionnaire', [
 .controller( 'AdminQuestionnaireCategoriesCtrl', function AdminQuestionnaireCategoriesCtrl($scope, $state, Category) {
   $scope.categories = Category.get();
 })
-
-
 
 .controller( 'AdminQuestionnaireQuestionsCtrl', function AdminQuestionnaireQuestionsCtrl($scope, $state, Question) {
   $scope.questions = Question.get();

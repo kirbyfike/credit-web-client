@@ -10,7 +10,6 @@
   	"finding_comment_template": ".", 
   	"risk_rating": "High Risk"
   },
-
   {
   	"question_id": 2, 
   	"question_text": "Was the required employment documentation acceptable (W-2, VOE, 1040, paystub)?", 
@@ -22,7 +21,6 @@
   	"finding_comment_template": "Income documentation in file is not acceptable - ", 
   	"risk_rating": "Unsatisfactory"
   },
-
   {
   	"question_id": 3, 
   	"question_text": "Does the file contain a Verbal VOE or Work # ?", 
@@ -34,7 +32,6 @@
   	"finding_comment_template": "Verbal VOE is missing from imaged file.", 
   	"risk_rating": "High Risk"
   },
-
   {
   	"question_id": 4, 
   	"question_text": "Was the Verbal VOE  or Work #  verification obtained within program guidelines?", 

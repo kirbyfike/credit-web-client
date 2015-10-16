@@ -1,9 +1,11 @@
+
 (function () {
 	'use strict';
 
 	require('angular');
 	require('angular-ui-router');
 	require('angular-resource');
+	require('angular-xeditable');
 
 	require('./login/login.js');
 	require('./admin/questionnaire/questionnaire.js');
