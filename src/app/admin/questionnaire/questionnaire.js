@@ -5,9 +5,9 @@ require('./nav/nav.js');
 	
 
 angular.module( 'credit.admin.questionnaire', [
-	'credit.admin.questionnaire.questionnaires',
 	'credit.admin.questionnaire.questions',
 	'credit.admin.questionnaire.categories',
+  'credit.admin.questionnaire.questionnaires',
 	'credit.admin.questionnaire.nav',
   'ui.router.state',
   'ngResource', 
@@ -35,3 +35,7 @@ angular.module( 'credit.admin.questionnaire', [
     data:{ pageTitle: 'Login' }
   })
 })
+
+.controller( 'AdminQuestionnaireCtrl', function AdminQuestionnaireCtrl($scope, $state) {
+})
+;

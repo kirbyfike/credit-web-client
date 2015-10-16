@@ -1,6 +1,6 @@
 [
-  {"title": "Questionnaire #1", "questionnaire_id": 1},
-  {"title": "Questionnaire #2", "questionnaire_id": 2},
-  {"title": "Questionnaire #3", "questionnaire_id": 3},
-  {"title": "Questionnaire #4", "questionnaire_id": 4}
+	{"id": 1, "title": "First Questionnaire"},
+	{"id": 2, "title": "Second Questionnaire"},
+	{"id": 3, "title": "Third Questionnaire"},
+	{"id": 4, "title": "Forth Questionnaire"}
 ]

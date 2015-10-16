@@ -7,34 +7,28 @@
 	  </div>
 	</section>
 
-
-
 	<div style="margin-top: 5%;" class="row">
-
-		<a ng-repeat="questionnaire in questionnaires" ui-sref="adminQuestionnaire.edit({id: questionnaire.questionnaire_id})">
+		<a ng-repeat="questionnaire in questionnaires" ui-sref="adminQuestionnaire.show({questionnaire_id: questionnaire.id})">
 			<div class="col-sm-6 col-md-3">
-			    <section class="panel panel-box">
-			        <div class="panel-top bg-success">
-			            <i class="glyphicon glyphicon-th-list text-large"></i>
-			        </div>
-			        <div class="panel-bottom bg-reverse">
-			            <p class="size-h3">{{questionnaire.title}}</p>
-			            <p class="size-h4">{{questionnaire.questionnaire_id}}</p>
-			        </div>
-			    </section>
+		    <section class="panel panel-box questionnaire-box">
+	        <div class="panel-top bg-success">
+            <p class="size-h3">{{questionnaire.question_text}}</p>
+            <p class="size-h4">{{questionnaire.id}}</p>
+	        </div>
+		    </section>
 			</div>
 		</a>
-		<div class="col-sm-6 col-md-3">
-      <section class="panel panel-box">
-        <div class="panel-top bg-inverse">
-          <i class="glyphicon glyphicon-plus text-large"></i>
-        </div>
-        <div class="panel-bottom bg-reverse">
-          <p class="size-h3">Add Questionnaire</p>
-          <p class="size-h4"></p>
-        </div>
-      </section>
-    </div>
+
+		<a ui-sref="adminQuestionnaire.new">
+			<div class="col-sm-6 col-md-3">
+		    <section class="panel panel-box questionnaire-box">
+		        <div class="panel-top">
+		            <p class="size-h3">Add Questionnaire</p>
+		            <p class="size-h4"></p>
+		        </div>
+		    </section>
+	    </div>
+	  </a>
 	</div> 
 
 

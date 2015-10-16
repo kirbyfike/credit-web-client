@@ -56,6 +56,8 @@ angular.module( 'credit.admin.questionnaire.categories', [
 .controller( 'AdminQuestionnaireCategoriesCtrl', function AdminQuestionnaireCategoriesCtrl($scope, $state, Category) {
   $scope.categories = Category.get();
 
+  console.log($scope.categories);
+
   // remove category
   $scope.removeCategory = function(index) {
    $scope.categories.splice(index, 1);
