@@ -1,29 +1,54 @@
-<div id="questionnaire_question_edit" class="container">
-  <h1>{{main_question.question_text}}</h1>
+<header id="question-nav">
+  <a ui-sref="adminQuestionnaire.index">
+    <div id="questionnaire-logo">
+    </div>
+  </a>
+  <p>
+    <a ui-sref="adminQuestionnaire.show({questionnaire_id: questionnaire.id})">{{questionnaire.title}}</a>
 
-  <div class="btn-group">
-    <button type="button" class="btn btn-primary" ng-class="{'btn-line-primary': main_question.trigger_on=='no'}" ng-click="addOtherQuestions('yes')">Yes</button>
-    <button type="button" class="btn btn-primary" ng-class="{'btn-line-primary': main_question.trigger_on=='yes'}" ng-click="addOtherQuestions('no')">No</button>
+    <span ng-repeat="question in history">
+      <span class="crumb-divider">></span> <a ui-sref="adminQuestionnaire.questionnaireEditQuestion({question_id: question.id, questionnaire_id: question.questionnaire_id})">{{question.question_text}}</a>
+    </span>
+    <span class="crumb-divider">></span> <label>{{main_question.question_text}}</label>
+  </p>
+</header>
+<div id="questionnaire-show" class="container">
+
+  <div>
+    <div style="text-align:center;">
+      <h1>{{main_question.question_text}}?</h1>
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary" ng-class="{'btn-line-primary': main_question.trigger_on=='no'}" ng-click="addOtherQuestions('yes')">Yes</button>
+        <button type="button" class="btn btn-primary" ng-class="{'btn-line-primary': main_question.trigger_on=='yes'}" ng-click="addOtherQuestions('no')">No</button>
+      </div>
+
+    </div>
   </div>
-  
-  <table class="table table-bordered table-striped table-responsive">
-    <thead>
-      <tr>
-        <th>
-          <div class="th">{{main_question.question_text}}</div>
-        </th>
-      </tr>
-    </thead>
+  <div class="table-filters">
+    <div style="margin-top: 2%;" class="row">
+      <div class="col-sm-4 col-xs-6">
+        <form class="ng-pristine ng-valid">
+          <input type="text" placeholder="search" class="form-control ng-pristine ng-valid" ng-model="searchText">
+        </form>
+      </div>
+      <div>
+        <button ng-click="showAddQuestionForm()" style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Add Question</button>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-striped table-responsive">
     <tbody>
       <tr ng-repeat="question in questionnaire_questions | filter:searchText">
-        <td>{{question.question_text}}</td>
-        <td>
+        <td><i class="fa fa-check-circle-o question-check"></i> {{question.question_text}}</td>
+        <td class="edit-item">
           <a ui-sref="adminQuestionnaire.questionnaireEditQuestion({question_id: question.id, questionnaire_id: question.questionnaire_id})" class="glyphicon glyphicon-pencil"></a>
         </td>
       </tr>
+      
     </tbody>
   </table>
-  <div>
+  <div ng-show="showAddForm">
     <form ng-submit="createQuestion(newQuestion)" ng-model="newQuestion">
       <div class="form-group">
         <label for="">Question Text</label>

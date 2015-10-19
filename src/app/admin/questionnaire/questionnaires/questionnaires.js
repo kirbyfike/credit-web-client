@@ -137,6 +137,21 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
     update: function(questionnaire_question) {
     },
     save: function(questionnaire) {
+    },
+    get_breadcrumb: function(requestObject) {
+
+      var history = [];
+      var parent_id = requestObject.parent_id;
+
+      while (parent_id > 0) {
+        var currrent_question = this.get({question_id: parent_id, questionnaire_id: requestObject.questionnaire_id});
+
+        history.push(currrent_question);
+
+        parent_id = currrent_question.parent_id;
+      }
+
+      return history.reverse();
     }
   };
 
@@ -179,6 +194,8 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
   $scope.questionnaire = Questionnaire.get({questionnaire_id:$state.params.questionnaire_id});
   
   $scope.main_question = QuestionnaireQuestion.get({question_id: $state.params.question_id, questionnaire_id: $state.params.questionnaire_id});
+
+  $scope.history = QuestionnaireQuestion.get_breadcrumb($scope.main_question);
 
   $scope.questionnaire_questions = QuestionnaireQuestion.get({parent_id: $state.params.question_id, questionnaire_id: $state.params.questionnaire_id});
 
