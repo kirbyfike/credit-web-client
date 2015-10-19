@@ -108,7 +108,19 @@ angular.module( 'credit.admin.questionnaire.categories', [
     $scope.categories.push($scope.inserted);
   };
 
-  $scope.updateCategory = function(index){
+  $scope.saveChanges = function(data, id){
+    for (var i = 0; i < $scope.categories.length; i++) {
+      if ($scope.categories[i].category_id == id){
+        
+        updateCategory(data)
+
+      } else { 
+        // block of code to be executed if the condition is false
+        saveCategory(data)};
+    };
+  };
+
+  $scope.updateCategory = function(category){
     Category.update(category, function(response) {
 
     }, function(error) {
@@ -118,7 +130,7 @@ angular.module( 'credit.admin.questionnaire.categories', [
     $state.go("adminQuestionnaire.categories", {}, {reload: true});
   };
 
-  $scope.saveCategory = function(index){
+  $scope.saveCategory = function(category){
     Category.save(category, function(response) {
 
     }, function(error) {
