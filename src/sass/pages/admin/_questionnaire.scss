@@ -4,6 +4,21 @@
 	}
 }
 
+.question-input-holder {
+	width: 100%;
+
+	padding-left: 0px;
+	padding-right: 0px;
+	
+	input {
+		width: 100%;
+	}
+
+	a {
+		cursor: pointer;
+	}
+}
+
 .question-check {
 	color: green;
 	margin-right: 10px;

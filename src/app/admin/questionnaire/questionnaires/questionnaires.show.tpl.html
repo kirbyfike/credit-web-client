@@ -14,29 +14,21 @@
       <h1>{{questionnaire.title}}</h1>
     </div>
   </div>
-  <div class="table-filters">
-    <div style="margin-top: 2%;" class="row">
-      <div class="col-sm-4 col-xs-6">
-        <form class="ng-pristine ng-valid">
-          <input type="text" placeholder="search" class="form-control ng-pristine ng-valid" ng-model="searchText">
-        </form>
-
-        <form data-ng-submit="add()" class="add-task ng-valid ng-dirty">
-          <input type="text" placeholder="Add a question..." class="form-control ng-valid ng-animate ng-pristine-remove ng-dirty-add ng-pristine-remove-active ng-dirty ng-dirty-add-active" data-ng-model="newQuestion" autofocus="" style="transition-duration: 0.15s, 0.15s; transition-property: none;transition-duration: 0.15s, 0.15s;">
-          <a type="submit" class="submit-button" data-ng-click="add()">
-              <span class="glyphicon glyphicon-plus"></span>
-          </a>
-        </form>
-      </div>
-      <div>
-        <button ng-click="showAddQuestionForm()" style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Add Question</button>
-      </div>
-    </div>
+  <div class="col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder">
+    <form data-ng-submit="add()" class="add-task">
+      <input type="text"
+             placeholder="Add a question..."
+             class="form-control"
+             data-ng-model="newQuestionText"
+             autofocus>
+      <a type="submit" class="submit-button" data-ng-click="createQuestion()">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
+    </form>
   </div>
-
   <table class="table table-striped table-responsive">
     <tbody>
-      <tr ng-repeat="question in questionnaire_questions | filter:searchText">
+      <tr ng-repeat="question in questionnaire_questions track by question.id">
         <td><i class="fa fa-check-circle-o question-check"></i> {{question.question_text}}</td>
         <td class="edit-item">
           <a ui-sref="adminQuestionnaire.questionnaireEditQuestion({question_id: question.id, questionnaire_id: question.questionnaire_id})" class="glyphicon glyphicon-pencil"></a>
