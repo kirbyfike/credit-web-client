@@ -37,7 +37,7 @@ angular.module( 'credit.admin.questionnaire.categories', [
     put: function(categories) {
       return localStorage.setItem(STORAGE_ID, JSON.stringify(categories));
     },
-    update: function(categories) {
+    update: function(category) {
       // return localStorage.setItem(STORAGE_ID, JSON.stringify(categories));
     
         var category_id = category.category_id;
@@ -57,22 +57,31 @@ angular.module( 'credit.admin.questionnaire.categories', [
             }
           }
         }
-      },
-      save: function(category) {
+    },
+    save: function(category) {
 
-        var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
-        var ids = [];
+      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
+      var ids = [];
 
-        for (var i = 0; i < return_array.length; i++) {
-          ids.push(return_array[i].category_id);
-        }
-
-        var largest = Math.max.apply(Math, ids);
-        category.category_id = largest + 1;
-        return_array.push(category);
-
-        return localStorage.setItem(STORAGE_ID, JSON.stringify(return_array));
+      for (var i = 0; i < return_array.length; i++) {
+        ids.push(return_array[i].category_id);
       }
+
+      var largest = Math.max.apply(Math, ids);
+      category.category_id = largest + 1;
+      return_array.push(category);
+
+      return localStorage.setItem(STORAGE_ID, JSON.stringify(return_array));
+    },
+
+    delete: function(category){
+
+      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
+
+      newArray = return_array.filter(function(cat){return cat.category_id !==category.category_id;});
+
+      return localStorage.setItem(STORAGE_ID, JSON.stringify(newArray));
+    }
   };
 
   var Category = $resource(URLHOST + "/category/:id.json", {id:'@id'}, {
@@ -92,8 +101,9 @@ angular.module( 'credit.admin.questionnaire.categories', [
   console.log($scope.categories);
 
   // remove category
-  $scope.removeCategory = function(index) {
-   $scope.categories.splice(index, 1);
+  $scope.removeCategory = function(category) {
+   Category.delete(category);
+   $state.go('adminQuestionnaire.categories', {}, { reload: true });
   };
 
   // add category
@@ -106,38 +116,32 @@ angular.module( 'credit.admin.questionnaire.categories', [
     };
 
     $scope.categories.push($scope.inserted);
+
+    Category.update($scope.inserted);
+
+
   };
 
-  $scope.saveChanges = function(data, id){
+  $scope.saveChanges = function(category){
+    console.log(category)
     for (var i = 0; i < $scope.categories.length; i++) {
-      if ($scope.categories[i].category_id == id){
-        
-        updateCategory(data)
-
+      if ($scope.categories[i].category_id == category.category_id)
+      {
+          Category.update(category)
       } else { 
-        // block of code to be executed if the condition is false
-        saveCategory(data)};
+
+      }
     };
+    
   };
 
-  $scope.updateCategory = function(category){
-    Category.update(category, function(response) {
 
-    }, function(error) {
-      $scope.error = error.data;
-    });
+  // $scope.showForm = false;
+  // $scope.toggle = function() {
+  //     $scope.showForm = !$scope.showForm;
+  // };
 
-    $state.go("adminQuestionnaire.categories", {}, {reload: true});
-  };
 
-  $scope.saveCategory = function(category){
-    Category.save(category, function(response) {
 
-    }, function(error) {
-      $scope.error = error.data;
-    });
-
-    $state.go("adminQuestionnaire.categories", {}, {reload: true});
-  };
 })
 ;

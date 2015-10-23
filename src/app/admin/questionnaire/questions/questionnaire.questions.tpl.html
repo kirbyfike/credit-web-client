@@ -16,10 +16,6 @@
                 <div class="col-sm-3 col-xs-6 filter-result-info">
                   <span class="ng-binding">Showing x/x entries</span>              
                 </div>
-                <div>
-                  <!-- <a ui-sref="adminQuestionnaire.questionsNew" style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Add Question</a> -->
-                  <a ng-click="addQuestion()" style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Add Question</a>
-                </div>
               </div>
             </div>
 
@@ -59,70 +55,95 @@
                 </tr>
               </thead>
               <tbody>
-    
-                <tr ng-repeat="question in questions | filter:searchText">
-                    <td >{{question.question_id}}</td>
+                <form>
+                  <tr ng-repeat="question in questions | filter:searchText">
+                    <td >
+                      <span >
+                        {{question.question_id}}
+                      </span>
+                    </td>
                     <td>
-                      <span editable-text="question.question_text" e-name="questionText" ng-hide="staticform" e-form="rowform" e-required>
+                     <span ng-show="!showForm">
                         {{question.question_text}}
                       </span>
+                      <span ng-show="showForm">
+                        <input type="text" ng-model="question.question_text" />
+                      </span>
                     </td>
                     <td>
-                      <span editable-text="question.trigger_finding_on" e-name="triggerFinding" ng-hide="staticform" e-form="rowform">
+                      <span ng-show="!showForm">
                         {{question.trigger_finding_on}}
                       </span>
+                      <span ng-show="showForm">
+                        <input type="text" ng-model="question.trigger_finding_on" />
+                      </span>
                     </td>
                     <td>
-                      <span editable-text="question.risk_category" e-name="riskCategory" ng-hide="staticform" e-form="rowform">
+                      <span ng-show="!showForm">
                         {{question.risk_category}}
                       </span>
+                      <span ng-show="showForm">
+                        <input type="text" ng-model="question.risk_category" />
+                      </span>
                     </td>
                     <td>
-                      <span editable-text="question.finding_category" e-name="findingCategory" ng-hide="staticform" e-form="rowform">
+                      <span ng-show="!showForm">
                         {{question.finding_category}}
                       </span>
+                      <span ng-show="showForm">
+                        <input type="text" ng-model="question.finding_category" />
+                      </span>
                     </td>
                     <td>
-                      <span editable-text="question.finding_sub_category" e-name="findingSub" ng-hide="staticform" e-form="rowform">
+                      <span ng-show="!showForm">
                         {{question.finding_sub_category}}
                       </span>
+                      <span ng-show="showForm">
+                        <input type="text" ng-model="question.finding_sub_category" />
+                      </span>
                     </td>
                     <td>
-                      <span editable-text="question.finding_statement" e-name="findingStatement" ng-hide="staticform" e-form="rowform">
+                      <span ng-show="!showForm">
                         {{question.finding_statement}}
                       </span>
+                      <span ng-show="showForm">
+                        <input type="text" ng-model="question.finding_statement" />
+                      </span>
                     </td>
                     <td>
-                      <span editable-text="question.finding_comment_template" e-name="findingComment" ng-hide="staticform" e-form="rowform">
+                      <span ng-show="!showForm">
                         {{question.finding_comment_template}}
                       </span>
-                    </td>
-                    <td>
-                      <span editable-text="question.risk_rating" e-name="riskRating" ng-hide="staticform" e-form="rowform">
-                        {{question.risk_rating}}
+                      <span ng-show="showForm">
+                        <input type="text" ng-model="question.finding_comment_template" />
                       </span>
                     </td>
-          
-
-                    <td style="white-space: nowrap">
-                      <!-- form -->
-                      <form editable-form name="rowform" onbeforesave="saveUser($data, question.question_id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == question">
-                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary" ng-click="staticform = false">
-                          save
-                        </button>
-                        <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel(); staticform = false" class="btn btn-default">
-                          cancel
-                        </button>
-                      </form>
-                      <div class="buttons" ng-show="!rowform.$visible">
-                        <button class="btn btn-primary" ng-click="rowform.$show(); staticform = true">edit</button>
-                        <button class="btn btn-danger" ng-click="removeQuestion($index)">del</button>
-                      </div>  
+                    <td>
+                      <span ng-show="!showForm">
+                        {{question.risk_rating}}
+                      </span>
+                      <span ng-show="showForm">
+                        <input type="text" ng-model="question.risk_rating" />
+                      </span>
                     </td>
-                </tr>
+                    <td>
+                      <button class="btn btn-primary" ng-click="showForm = true;" ng-show="!showForm">edit</button>
+                      <button class="btn btn-primary" ng-click="showForm = false; saveChanges(question)" ng-show="showForm">save</button>
+                      <button class="btn btn-primary" ng-click="showForm = false; removeQuestion(question)" ng-show="showForm">delete</button>
+                      <button class="btn btn-primary" ng-click="showForm = false;" ng-show="showForm">cancel</button>
+                    </td>
+                  </tr>
+                </form>
 
               </tbody>
             </table>
+
+            <div>
+              <!-- <a ui-sref="adminQuestionnaire.questionsNew" style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Add Question</a> -->
+              <a ng-click="addQuestion()"  type="button" class="btn btn-primary btn-sm">Add Question</a>
+            </div>
+
+
 
             <footer class="table-footer">
               <div class="row">

@@ -15,10 +15,7 @@
           <div class="col-sm-3 col-xs-6 filter-result-info">
             <span class="ng-binding">Showing x/x entries</span>              
           </div>
-          <div>
-            <!-- <a ui-sref="adminQuestionnaire.categoryNew" type="button" style="margin-right: 2%;" class="pull-right btn btn-primary btn-sm add-category">Add Category</a> -->
-            <a ng-click="addCategory()" type="button" style="margin-right: 2%;" class="pull-right btn btn-primary btn-sm add-category">Add Category</a>
-          </div>
+
         </div>
       </div>
       <div class="panel-body">
@@ -34,22 +31,46 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="category in categories | filter:searchText">
-                  <td >{{category.category_id}}</td>
-                  <td>
-                    <span editable-text="category.worksheet_name" e-name="worksheetname" e-form="rowform" ng-hide="staticform" e-required>
-                      {{category.worksheet_name}}
-                    </span>
-                  </td>
-                  <td>
-                    <span editable-text="category.category_name" e-name="categoryname" e-form="rowform" ng-hide="staticform" >
-                      {{category.category_name}}
-                    </span>
-                  </td>
+                <form>
+                  <tr ng-repeat="category in categories | filter:searchText track by $index">
+                    <td >
+                      <span ng-model="category.category_id">
+                        {{category.category_id}}
+                      </span>
+ <!--                      <span ng-show="showForm">
+                        <input type="text" ng-model="category.category_id" />
+                      </span> -->
+                    </td>
+                    <td>
+                     <span ng-show="!showForm">
+                        {{category.worksheet_name}}
+                      </span>
+                      <span ng-show="showForm">
+                        <input type="text" ng-model="category.worksheet_name" />
+                      </span>
+                    </td>
+                    <td>
+                      <span ng-show="!showForm">
+                        {{category.category_name}}
+                      </span>
+                      <span ng-show="showForm">
+                        <input type="text" ng-model="category.category_name" />
+                      </span>
+                    </td>
+                    <td>
+                      <button class="btn btn-primary" ng-click="showForm = true;" ng-show="!showForm">edit</button> 
+                      <button class="btn btn-primary" ng-click="showForm = false; saveChanges(category);" ng-show="showForm">save</button><br>
+                      <button class="btn btn-primary" ng-click="showForm = false; removeCategory(category)" ng-show="showForm">delete</button><br>
+                      <button class="btn btn-primary" ng-click="showForm = false;" ng-show="showForm">cancel</button>
+                    </td>
+                  </tr>
+  
+                </form>
+
                   <!-- <td><a ui-sref="adminQuestionnaire.categoryEdit({id: category.category_id})" class="glyphicon glyphicon-pencil"></a></td> -->
 
-                  <td style="white-space: nowrap">
-                    <!-- form -->
+<!--                   <td style="white-space: nowrap">
+     
                     <form editable-form name="rowform" onbeforesave="saveUser($data, category.category_id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == category">
                       <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary" ng-click="staticform = false">
                         save
@@ -62,13 +83,15 @@
                       <button class="btn btn-primary" ng-click="rowform.$show(); staticform = true">edit</button>
                       <button class="btn btn-danger" ng-click="removeCategory($index)">del</button>
                     </div>  
-                  </td>
-                </tr>
+                  </td> -->
 
               </tbody>
             </table>
 
-
+            <div>
+              <!-- <a ui-sref="adminQuestionnaire.categoryNew" type="button" style="margin-right: 2%;" class="pull-right btn btn-primary btn-sm add-category">Add Category</a> -->
+              <a ng-click="addCategory();" type="button"  class="btn btn-primary btn-sm add-category">Add Category</a>
+            </div>
           </div>
         </div>            
       </div>

@@ -71,6 +71,15 @@ angular.module( 'credit.admin.questionnaire.questions', [
       return_array.push(question);
 
       return localStorage.setItem(STORAGE_ID, JSON.stringify(return_array));
+    },
+
+    delete: function(question){
+
+      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
+
+      newArray = return_array.filter(function(q){return q.question_id !==question.question_id;});
+
+      return localStorage.setItem(STORAGE_ID, JSON.stringify(newArray));
     }
   };
 
@@ -88,9 +97,15 @@ angular.module( 'credit.admin.questionnaire.questions', [
 .controller( 'AdminQuestionnaireQuestionsCtrl', function AdminQuestionnaireQuestionsCtrl($scope, $state, Question) {
   $scope.questions = Question.get();
 
+  // $scope.showForm = true;
+  // $scope.toggle = function() {
+  //     $scope.showForm = !$scope.showForm;
+  // };
   // remove question
-  $scope.removeQuestion = function(index) {
-   $scope.questions.splice(index, 1);
+  $scope.removeQuestion = function(question) {
+   Question.delete(question);
+   $state.go('adminQuestionnaire.questions', {}, { reload: true });
+   // $scope.questions.splice(index, 1);
   };
    // add question
   $scope.addQuestion = function() {
@@ -106,8 +121,21 @@ angular.module( 'credit.admin.questionnaire.questions', [
      risk_rating: null,
    };
    $scope.questions.push($scope.inserted);
+
+   Question.update($scope.inserted);
+   
   };
 
+  $scope.saveChanges = function(question){
+    console.log(question)
+    for (var i = 0; i < $scope.questions.length; i++) {
+      if ($scope.questions[i].question_id == question.question_id)
+      {
+          Question.update(question)
+      } 
+      else { }
+    };
+  };
 
 })
 ;
