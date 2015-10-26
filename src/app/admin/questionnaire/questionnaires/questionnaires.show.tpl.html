@@ -6,6 +6,12 @@
   <p>
     <label>{{questionnaire.title}}</label>
   </p>
+    
+  <p>Category: 
+    <select class=".dropdown-menu-right" name="repeatSelect" id="repeatSelect" ng-model="category.category_name">
+      <option ng-repeat="category in categories" value="{{category.category_name}}">{{category.category_name}}</option>
+    </select>
+  </p>
 </header>
 <div id="questionnaire-show" class="container">
 

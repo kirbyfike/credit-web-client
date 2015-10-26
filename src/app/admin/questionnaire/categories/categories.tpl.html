@@ -31,7 +31,7 @@
               </thead>
               <tbody>
                 <form>
-                  <tr ng-repeat="category in categories | filter:searchText track by $index">
+                  <tr ng-repeat="category in categories | filter:searchText track by category.category_id">
                     <td >
                       <span ng-model="category.category_id">
                         {{category.category_id}}
@@ -42,14 +42,23 @@
                       <span ng-show="!showForm">
                         {{category.category_name}}
                       </span>
-<!--                       <span ng-show="showForm">
+                      <span ng-show="showForm">
                         <input type="text" ng-model="category.category_name" />
-                      </span> -->
+                      </span>
 
+                      
+                    <!--   <p>Selected: {{category.selected}}</p> -->
+           <!--            <ui-select ng-model="category.selected" theme="selectize" ng-disabled="disabled" style="width: 300px;">
+                        <ui-select-match placeholder="Select or search a category in the list...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="category in categories | filter: $select.search">
+                          <span ng-bind-html="category.category_name | highlight: $select.search"></span>
+                          
+                        </ui-select-choices>
+                      </ui-select> -->
 
-                      <select ng-show="showForm" name="repeatSelect" id="repeatSelect" ng-model="category.category_name">
+        <!--               <select ng-show="showForm" name="repeatSelect" id="repeatSelect" ng-model="category.category_name">
                         <option ng-repeat="category in categories" value="{{category.category_name}}">{{category.category_name}}</option>
-                      </select>
+                      </select> -->
 
 <!--                       <select ng-show="showForm" name="mySelect" id="mySelect"
                         ng-options="category.category_name for category in categories track by category.category_id"

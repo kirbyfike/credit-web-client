@@ -109,8 +109,7 @@ angular.module( 'credit.admin.questionnaire.questions', [
   };
    // add question
   $scope.addQuestion = function() {
-   $scope.inserted = {
-     question_id: $scope.questions.length+1,
+   var inserted = {
      question_text: '',
      trigger_finding_on: null,
      risk_category: null,
@@ -120,9 +119,10 @@ angular.module( 'credit.admin.questionnaire.questions', [
      finding_comment_template: null,
      risk_rating: null,
    };
-   $scope.questions.push($scope.inserted);
+   // $scope.questions.push(inserted);
 
-   Question.update($scope.inserted);
+   Question.save(inserted);
+   $scope.questions = Question.get();
    
   };
 

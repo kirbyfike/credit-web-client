@@ -56,7 +56,7 @@
               </thead>
               <tbody>
                 <form>
-                  <tr ng-repeat="question in questions | filter:searchText">
+                  <tr ng-repeat="question in questions | filter:searchText track by question.question_id">
                     <td >
                       <span >
                         {{question.question_id}}

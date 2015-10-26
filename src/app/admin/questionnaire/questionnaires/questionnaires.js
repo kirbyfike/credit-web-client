@@ -202,7 +202,9 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
   $scope.questionnaires = Questionnaire.get();
 })
 
-.controller('AdminQuestionnaireShowCtrl', function AdminQuestionnaireShowCtrl($scope, $state, Questionnaire, QuestionnaireQuestion) {
+.controller('AdminQuestionnaireShowCtrl', function AdminQuestionnaireShowCtrl($scope, $state, Questionnaire, QuestionnaireQuestion, Category) {
+
+  $scope.categories = Category.get();
 
   $scope.newQuestionText = "";
 

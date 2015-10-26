@@ -109,15 +109,15 @@ angular.module( 'credit.admin.questionnaire.categories', [
   // add category
   $scope.addCategory = function() {
 
-    $scope.inserted = {
-     category_id: $scope.categories.length+1,
-     worksheet_name: '',
+    var inserted = {
+
      category_name: null,
     };
 
-    $scope.categories.push($scope.inserted);
+    // $scope.categories.push(inserted);
 
-    Category.update($scope.inserted);
+    Category.save(inserted);
+    $scope.categories = Category.get();
 
 
   };
