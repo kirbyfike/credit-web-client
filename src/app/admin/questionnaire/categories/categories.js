@@ -118,12 +118,9 @@ angular.module( 'credit.admin.questionnaire.categories', [
     $scope.categories.push($scope.inserted);
 
     Category.update($scope.inserted);
-
-
   };
 
   $scope.saveChanges = function(category){
-    console.log(category)
     for (var i = 0; i < $scope.categories.length; i++) {
       if ($scope.categories[i].category_id == category.category_id)
       {

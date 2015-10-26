@@ -155,6 +155,8 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
       return questionnaire_question;
     },
     save: function(questionnaire_question) {
+      console.log(questionnaire_question);
+      
       var return_array = JSON.parse(localStorage.getItem(QUESTIONNAIRE_QUESTION_STORAGE_ID)) || DEMO_QUESTIONNAIRE_QUESTIONS;
       var ids = [];
 
@@ -165,6 +167,9 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
       var largest = Math.max.apply(Math, ids);
       questionnaire_question.id = largest + 1;
       return_array.push(questionnaire_question);
+
+
+
 
       localStorage.setItem(QUESTIONNAIRE_QUESTION_STORAGE_ID, JSON.stringify(return_array));
 
