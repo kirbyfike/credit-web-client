@@ -16,13 +16,13 @@ angular.module( 'credit.admin.questionnaire.questions', [
 
 .factory('Question', function ($resource, URLHOST)  {
   var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/data/question.json" : "/question.json";
-  STORAGE_ID = 'questions';
+  QUESTION_STORAGE_ID = 'questions';
   DEMO_QUESTIONS = require('./question.json');
 
 
   var LocalQuestion = {
     get: function(question) {
-      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONS;
+      var return_array = JSON.parse(localStorage.getItem(QUESTION_STORAGE_ID)) || DEMO_QUESTIONS;
 
       if ((typeof return_array != 'undefined') && question) {
         var id = question.question_id;
@@ -35,13 +35,13 @@ angular.module( 'credit.admin.questionnaire.questions', [
       return return_array;
     },
     put: function(questions) {
-      return localStorage.setItem(STORAGE_ID, JSON.stringify(questions));
+      return localStorage.setItem(QUESTION_STORAGE_ID, JSON.stringify(questions));
     },
     update: function(question) {
 
       var question_id = question.question_id;
       
-      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONS;
+      var return_array = JSON.parse(localStorage.getItem(QUESTION_STORAGE_ID)) || DEMO_QUESTIONS;
 
       if ((typeof return_array != 'undefined') && question) {
         var id = question.question_id;
@@ -50,7 +50,7 @@ angular.module( 'credit.admin.questionnaire.questions', [
           if (return_array[i].question_id == id) {
             return_array[i] = question;
 
-            localStorage.setItem(STORAGE_ID, JSON.stringify(return_array));
+            localStorage.setItem(QUESTION_STORAGE_ID, JSON.stringify(return_array));
 
             return return_array[i];
           }
@@ -59,7 +59,7 @@ angular.module( 'credit.admin.questionnaire.questions', [
     },
     save: function(question) {
 
-      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONS;
+      var return_array = JSON.parse(localStorage.getItem(QUESTION_STORAGE_ID)) || DEMO_QUESTIONS;
       var ids = [];
 
       for (var i = 0; i < return_array.length; i++) {
@@ -70,7 +70,7 @@ angular.module( 'credit.admin.questionnaire.questions', [
       question.question_id = largest + 1;
       return_array.push(question);
 
-      return localStorage.setItem(STORAGE_ID, JSON.stringify(return_array));
+      return localStorage.setItem(QUESTION_STORAGE_ID, JSON.stringify(return_array));
     }
   };
 

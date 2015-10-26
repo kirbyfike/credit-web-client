@@ -15,13 +15,13 @@ angular.module( 'credit.admin.questionnaire.categories', [
 
 .factory('Category', function ($resource, URLHOST)  {
   var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/data/category.json" : "/category.json";
-  STORAGE_ID = 'categories';
+  CATEGORY_STORAGE_ID = 'categories';
   DEMO_CATEGORIES = require('./category.json');
 
 
   var LocalCategory = {
     get: function(category) {
-      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
+      var return_array = JSON.parse(localStorage.getItem(CATEGORY_STORAGE_ID)) || DEMO_CATEGORIES;
 
       if ((typeof return_array != 'undefined') && category) {
         var id = category.category_id;
@@ -35,10 +35,10 @@ angular.module( 'credit.admin.questionnaire.categories', [
       return return_array;
     },
     put: function(categories) {
-      return localStorage.setItem(STORAGE_ID, JSON.stringify(categories));
+      return localStorage.setItem(CATEGORY_STORAGE_ID, JSON.stringify(categories));
     },
     update: function(categories) {
-      return localStorage.setItem(STORAGE_ID, JSON.stringify(categories));
+      return localStorage.setItem(CATEGORY_STORAGE_ID, JSON.stringify(categories));
     }
   };
 
@@ -55,8 +55,6 @@ angular.module( 'credit.admin.questionnaire.categories', [
 
 .controller( 'AdminQuestionnaireCategoriesCtrl', function AdminQuestionnaireCategoriesCtrl($scope, $state, Category) {
   $scope.categories = Category.get();
-
-  console.log($scope.categories);
 
   // remove category
   $scope.removeCategory = function(index) {
