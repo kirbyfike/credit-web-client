@@ -132,6 +132,7 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
         }
       }
 
+
       return new_array;
     },
     update: function(questionnaire_question) {
@@ -167,9 +168,6 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
       var largest = Math.max.apply(Math, ids);
       questionnaire_question.id = largest + 1;
       return_array.push(questionnaire_question);
-
-
-
 
       localStorage.setItem(QUESTIONNAIRE_QUESTION_STORAGE_ID, JSON.stringify(return_array));
 
