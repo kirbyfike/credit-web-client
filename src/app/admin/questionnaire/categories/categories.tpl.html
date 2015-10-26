@@ -25,7 +25,6 @@
               <thead>
                 <tr>
                   <td>Category</td>
-                  <td>Worksheet Name</td>
                   <td>Category Name</td>
                   <td>Edit</td>
                 </tr>
@@ -37,25 +36,26 @@
                       <span ng-model="category.category_id">
                         {{category.category_id}}
                       </span>
- <!--                      <span ng-show="showForm">
-                        <input type="text" ng-model="category.category_id" />
-                      </span> -->
                     </td>
-                    <td>
-                     <span ng-show="!showForm">
-                        {{category.worksheet_name}}
-                      </span>
-                      <span ng-show="showForm">
-                        <input type="text" ng-model="category.worksheet_name" />
-                      </span>
-                    </td>
+
                     <td>
                       <span ng-show="!showForm">
                         {{category.category_name}}
                       </span>
-                      <span ng-show="showForm">
+<!--                       <span ng-show="showForm">
                         <input type="text" ng-model="category.category_name" />
-                      </span>
+                      </span> -->
+
+
+                      <select ng-show="showForm" name="repeatSelect" id="repeatSelect" ng-model="category.category_name">
+                        <option ng-repeat="category in categories" value="{{category.category_name}}">{{category.category_name}}</option>
+                      </select>
+
+<!--                       <select ng-show="showForm" name="mySelect" id="mySelect"
+                        ng-options="category.category_name for category in categories track by category.category_id"
+                        ng-model="category.category_name"></select> -->
+
+
                     </td>
                     <td>
                       <button class="btn btn-primary" ng-click="showForm = true;" ng-show="!showForm">edit</button> 
