@@ -94,6 +94,8 @@ angular.module( 'credit.admin.questionnaire.questions', [
   return (URLHOST == "localhost:8888") ? LocalQuestion : Question;
 })
 
+
+
 .controller( 'AdminQuestionnaireQuestionsCtrl', function AdminQuestionnaireQuestionsCtrl($scope, $state, Question) {
   $scope.questions = Question.get();
 
@@ -139,7 +141,25 @@ angular.module( 'credit.admin.questionnaire.questions', [
     };
   };
 
+  $scope.saveQuestion = function(question){
+    Question.save(question);
+    $scope.questions = Question.get();
+    $scope.questions.reverse
+
+  };
+
 })
+
+
+.directive('editQuestion', function() { 
+  return { 
+    restrict: 'E', 
+    scope: { 
+      info: '=' 
+    }, 
+    templateUrl: 'app/admin/questionnaire/questions/questions.edit.tpl.html' 
+  }; 
+});
 ;
 
 

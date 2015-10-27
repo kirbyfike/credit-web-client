@@ -1,5 +1,5 @@
-<div class="container">
-  <h1>Question {{question.question_id}}</h1>
+<!-- <div class="container"> -->
+<!--   <h1>Question {{question.question_id}}</h1> -->
   
   <form name="form_constraints" ng-model="question" class="form-validation" ng-submit="update(question)">
       <div class="form-group">
@@ -70,9 +70,16 @@
         >
       </div>
 
-      <button type="submit"
+<!--       <button type="submit"
               class="btn btn-success"
               ng-disabled="creatingProspect"
-              >Update</button>
+              >Update</button> -->
+      <div>
+        <button ng-click="showForm = false" style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Cancel</button>
+      </div>
+ 
+      <div>
+        <button ng-click="saveQuestion(question); showForm = false" style="margin-right: 2%; margin-right: 17px;" type="submit" class="pull-right btn btn-primary btn-sm">Save Question</button>
+      </div> 
   </form>
-</div>
+<!-- </div> -->
