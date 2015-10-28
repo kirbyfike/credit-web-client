@@ -13,7 +13,6 @@ angular.module( 'credit.admin.questionnaire.questions', [
 })
 
 // FACTORY
-
 .factory('Question', function ($resource, URLHOST)  {
   var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/data/question.json" : "/question.json";
   QUESTION_STORAGE_ID = 'questions';
@@ -71,6 +70,15 @@ angular.module( 'credit.admin.questionnaire.questions', [
       return_array.push(question);
 
       return localStorage.setItem(QUESTION_STORAGE_ID, JSON.stringify(return_array));
+    },
+
+    delete: function(question){
+
+      var return_array = JSON.parse(localStorage.getItem(QUESTION_STORAGE_ID)) || DEMO_CATEGORIES;
+
+      newArray = return_array.filter(function(q){return q.question_id !==question.question_id;});
+
+      return localStorage.setItem(QUESTION_STORAGE_ID, JSON.stringify(newArray));
     }
   };
 
@@ -88,14 +96,21 @@ angular.module( 'credit.admin.questionnaire.questions', [
 .controller( 'AdminQuestionnaireQuestionsCtrl', function AdminQuestionnaireQuestionsCtrl($scope, $state, Question) {
   $scope.questions = Question.get();
 
+  // $scope.showForm = true;
+  // $scope.toggle = function() {
+  //     $scope.showForm = !$scope.showForm;
+  // };
   // remove question
-  $scope.removeQuestion = function(index) {
-   $scope.questions.splice(index, 1);
+  $scope.removeQuestion = function(question) {
+   Question.delete(question);
+   $state.go('adminQuestionnaire.questions', {}, { reload: true });
+   // $scope.questions.splice(index, 1);
   };
-   // add question
+  
+
+  // add question
   $scope.addQuestion = function() {
-   $scope.inserted = {
-     question_id: $scope.questions.length+1,
+   var inserted = {
      question_text: '',
      trigger_finding_on: null,
      risk_category: null,
@@ -105,11 +120,20 @@ angular.module( 'credit.admin.questionnaire.questions', [
      finding_comment_template: null,
      risk_rating: null,
    };
-   $scope.questions.push($scope.inserted);
+
+   Question.save(inserted);
+
+   $scope.questions = Question.get();
   };
 
-
+  $scope.saveChanges = function(question){
+    for (var i = 0; i < $scope.questions.length; i++) {
+      if ($scope.questions[i].question_id == question.question_id)
+      {
+          Question.update(question)
+      } 
+      else { }
+    };
+  };
 })
 ;
-
-

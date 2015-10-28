@@ -132,6 +132,7 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
         }
       }
 
+
       return new_array;
     },
     update: function(questionnaire_question) {
@@ -155,6 +156,8 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
       return questionnaire_question;
     },
     save: function(questionnaire_question) {
+      console.log(questionnaire_question);
+      
       var return_array = JSON.parse(localStorage.getItem(QUESTIONNAIRE_QUESTION_STORAGE_ID)) || DEMO_QUESTIONNAIRE_QUESTIONS;
       var ids = [];
 
@@ -202,7 +205,9 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
   $scope.questionnaires = Questionnaire.get();
 })
 
-.controller('AdminQuestionnaireShowCtrl', function AdminQuestionnaireShowCtrl($scope, $state, Questionnaire, QuestionnaireQuestion) {
+.controller('AdminQuestionnaireShowCtrl', function AdminQuestionnaireShowCtrl($scope, $state, Questionnaire, QuestionnaireQuestion, Category) {
+
+  $scope.categories = Category.get();
 
   $scope.newQuestionText = "";
 

@@ -3,12 +3,13 @@
     <div id="questionnaire-logo">
     </div>
   </a>
-  <p>
-    <label>{{questionnaire.title}}</label>
+  
+  <p>Category: 
+    <select class=".dropdown-menu-right" id="repeatSelect" ng-model="questionnaire.category_id" ng-options="category.category_id as category.category_name for category in categories"></select>
   </p>
 </header>
 <div id="questionnaire-show" class="container">
-
+  <h1></h1>
   <div>
     <div style="text-align:center;">
       <h1>{{questionnaire.title}}</h1>
