@@ -158,10 +158,35 @@ angular.module( 'credit.admin.questionnaire.questions', [
       info: '=' 
     }, 
     link: function ($scope, element, attrs) {
-      element.click(function(data){
-        element.hide();
-        $(".add-question-form").slideDown();
-      })
+      var $editButton = $(".edit-question-button");
+      var $editCancelButton = $(".edit-cancel-button");
+      var $addQuestionForm = $(".add-question-form");
+      var $addQuestionCancelButton = $(".add-question-cancel-button");
+      var $addQuestionButton = $(".add-question-button");
+
+      $addQuestionButton .click(function(data){
+        $addQuestionButton .hide();
+        $addQuestionForm.slideDown();
+      });
+      $addQuestionCancelButton.click(function(){
+        $addQuestionCancelButton.hide();
+        $addQuestionForm.slideUp();
+        $addQuestionButton .show();
+
+      $editButton.click(function(){
+        $editButton.hide();
+        $editQuestonForm.slideDown();
+      });
+
+      $editCancelButton.click(function(){
+        $editButton.show();
+        $editQuestonForm.slideUp();
+
+      });
+
+      });
+
+      element
     }
   }; 
 });

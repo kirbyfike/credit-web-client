@@ -17,7 +17,7 @@
         </form>
       </div>
       <div>
-        <button add-question style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Add Question</button>
+        <button add-question style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm add-question-button">Add Question</button>
       </div>
       
     <!-- <form data-ng-submit="add()" class="add-task"> -->
@@ -95,12 +95,18 @@
         >
       </div>
 
-<!--       <button type="submit"
+      <div>
+        <button class="btn btn-primary" ng-click="saveChanges(category)" >save</button>
+        <button class="btn btn-primary add-question-cancel-button" ng-click="" >cancel</button>
+      </div>
+
+      <!--       <button type="submit"
               class="btn btn-success"
               ng-disabled="creatingProspect"
               >Update</button> -->
     </form>
   </div>
+
   <table class="table table-striped table-responsive">
     <tbody>
       <tr>
@@ -109,13 +115,96 @@
       <tr ng-repeat="question in questions | filter:searchText track by question.question_id">
         <td><i class="fa fa-check-circle-o question-check"></i> {{question.question_text}}</td>
         <td class="edit-item">
-          <a ng-click="showForm=true" class="glyphicon glyphicon-pencil"></a>
+          <!-- <a ng-click="showForm=true" class="glyphicon glyphicon-pencil"></a> -->
+          <button class="btn btn-primary edit-question-button" ng-click="showForm = true;" ng-show="!showForm">edit</button>
+
+          <!-- EDIT FORM -->
+          <div  class="col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder">
+            <form name="form_constraints" ng-model="question" class="edit-question-form form-validation" ng-submit="update(question)"  ng-show="showForm">
+              <div class="form-group">
+                <label for="">Question Text</label>
+                <input  type="text"
+                        class="form-control"
+                        ng-model="question.question_text"
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="">Trigger Finding On</label><br>
+                <label>
+                  <input type="radio" ng-model="question.trigger_finding_on" value="Yes">
+                  Yes
+                </label><br/>
+                <label>
+                  <input type="radio" ng-model="question.trigger_finding_on" value="No">
+                  No
+                </label><br />
+              </div>
+
+              <div class="form-group">
+                <label for="">Risk Category</label>
+                <input  type="text"
+                        class="form-control"
+                        ng-model="question.risk_category"
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="">Finding Category</label>
+                <input  type="text"
+                        class="form-control"
+                        ng-model="question.finding_category"
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="">Finding Sub Category</label>
+                <input  type="text"
+                        class="form-control"
+                        ng-model="question.finding_sub_category"
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="">Finding Statement</label>
+                <input  type="text"
+                        class="form-control"
+                        ng-model="question.finding_statement"
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="">Finding Comment Template</label>
+                <input  type="text"
+                        class="form-control"
+                        ng-model="question.finding_comment_template"
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="">Risk Rating</label>
+                <input  type="text"
+                        class="form-control"
+                        ng-model="question.risk_rating"
+                >
+              </div>
+
+              <div>
+                <button class="btn btn-primary" ng-click="showForm = false;saveChanges(category)" >save</button>
+                <button class="btn btn-primary edit-cancel-button" ng-click="showForm = false" >cancel</button>
+              </div>
+
+              <!--       <button type="submit"
+                      class="btn btn-success"
+                      ng-disabled="creatingProspect"
+                      >Update</button> -->
+            </form>
+          </div>
         </td>
           <!-- <div class="editForm">  -->
           <!-- <edit-question info="question"></edit-question>  -->
         <!-- </div> -->
-      </tr>
-      <tr >
+
       </tr>
       
     </tbody>
