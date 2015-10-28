@@ -151,13 +151,18 @@ angular.module( 'credit.admin.questionnaire.questions', [
 })
 
 
-.directive('editQuestion', function() { 
+.directive('addQuestion', function() { 
   return { 
-    restrict: 'E', 
+    restrict: 'A',
     scope: { 
       info: '=' 
     }, 
-    templateUrl: 'app/admin/questionnaire/questions/questions.edit.tpl.html' 
+    link: function ($scope, element, attrs) {
+      element.click(function(data){
+        element.hide();
+        $(".add-question-form").slideDown();
+      })
+    }
   }; 
 });
 ;
