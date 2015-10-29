@@ -22,7 +22,8 @@
     "angular-route": "~1.4.0",
     "angular-animate": "~1.4.0",
     "angular-aria": "~1.4.0",
-    "angular-bootstrap": "~0.13.0"
+    "angular-bootstrap": "~0.13.0",
+    "angular-strap": "~2.3.4"
   },
   "devDependencies": {
     "compass-mixins": "~1.0.2",

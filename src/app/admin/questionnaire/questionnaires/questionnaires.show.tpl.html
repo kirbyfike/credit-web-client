@@ -7,7 +7,12 @@
   <p>Category: 
     <select class=".dropdown-menu-right" id="repeatSelect" ng-model="questionnaire.category_id" ng-options="category.category_id as category.category_name for category in categories"></select>
   </p>
+  <div toggle-nav class="toggle-nav-holder">
+    <i class="fa fa-bars fa-2x toggle-nav-button"></i>
+  </div>
 </header>
+
+<div id="screen"></div>
 <div id="questionnaire-show" class="container">
   <h1></h1>
   <div>
@@ -20,8 +25,10 @@
       <input type="text"
              placeholder="Add a question..."
              class="form-control"
-             data-ng-model="newQuestionText"
-             autofocus>
+             data-ng-model="newQuestion"
+             autofocus
+             bs-options="question.question_text for question in questions"
+             bs-typeahead>
       <a type="submit" class="submit-button" data-ng-click="createQuestion()">
         <span class="glyphicon glyphicon-plus"></span>
       </a>
@@ -52,4 +59,17 @@
           >Create</button>
     </form>
   </div>
+</div>
+<div id="questionnaire-nav">
+  <ul id="nav">
+    <li>
+      <a ui-sref="adminQuestionnaire.index()">Questionnaires</a>
+    </li>
+    <li>
+      <a ui-sref="adminQuestionnaire.categories()">Categories</a>
+    </li>
+    <li>
+      <a ui-sref="adminQuestionnaire.questions()">Questions</a>
+    </li>
+  </ul>
 </div>

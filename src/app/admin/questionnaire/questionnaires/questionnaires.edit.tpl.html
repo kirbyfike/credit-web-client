@@ -11,7 +11,12 @@
     </span>
     <span class="crumb-divider">></span> <label>{{main_question.question_text}}</label>
   </p>
+  <div toggle-nav class="toggle-nav-holder">
+    <i class="fa fa-bars fa-2x toggle-nav-button"></i>
+  </div>
 </header>
+
+<div id="screen"></div>
 <div id="questionnaire-show" class="container">
 
   <div>
@@ -27,10 +32,12 @@
   <div ng-show="show_add_input || main_question.trigger_on == 'yes' || main_question.trigger_on == 'no'" class="col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder">
     <form data-ng-submit="add()" class="add-task">
       <input type="text"
-             placeholder="Add a sub question..."
+             placeholder="Add a question..."
              class="form-control"
-             data-ng-model="newQuestionText"
-             autofocus>
+             data-ng-model="newQuestion"
+             autofocus
+             bs-options="question.question_text for question in questions"
+             bs-typeahead>
       <a type="submit" class="submit-button" data-ng-click="createQuestion()">
         <span class="glyphicon glyphicon-plus"></span>
       </a>
@@ -63,4 +70,17 @@
           >Create</button>
     </form>
   </div>
+</div>
+<div id="questionnaire-nav">
+  <ul id="nav">
+    <li>
+      <a ui-sref="adminQuestionnaire.index()">Questionnaires</a>
+    </li>
+    <li>
+      <a ui-sref="adminQuestionnaire.categories()">Categories</a>
+    </li>
+    <li>
+      <a ui-sref="adminQuestionnaire.questions()">Questions</a>
+    </li>
+  </ul>
 </div>

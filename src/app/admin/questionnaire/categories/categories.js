@@ -1,6 +1,6 @@
 angular.module( 'credit.admin.questionnaire.categories', [
   'ui.router.state',
-  'ngResource', 'xeditable'
+  'ngResource'
 ])
 
 .config(function config( $stateProvider ) {
@@ -126,9 +126,15 @@ angular.module( 'credit.admin.questionnaire.categories', [
 
       }
     };
+    $scope.categories = Category.get();
     
   };
 
+  $scope.saveCategory = function(category){
+      Category.save(category);
+      $scope.categories = Category.get();
+      $scope.categories.reverse();
+  };
 
   // $scope.showForm = false;
   // $scope.toggle = function() {

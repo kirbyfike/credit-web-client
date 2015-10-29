@@ -1,6 +1,7 @@
 angular.module( 'credit.admin.questionnaire.questions', [
   'ui.router.state',
-  'ngResource', 'xeditable'
+  'ngResource',
+  'mgcrea.ngStrap.typeahead'
 ])
 .config(function config( $stateProvider ) {
   $stateProvider
@@ -93,7 +94,10 @@ angular.module( 'credit.admin.questionnaire.questions', [
   return (URLHOST == "localhost:8888") ? LocalQuestion : Question;
 })
 
+
+
 .controller( 'AdminQuestionnaireQuestionsCtrl', function AdminQuestionnaireQuestionsCtrl($scope, $state, Question) {
+
   $scope.questions = Question.get();
 
   // $scope.showForm = true;
@@ -126,14 +130,26 @@ angular.module( 'credit.admin.questionnaire.questions', [
    $scope.questions = Question.get();
   };
 
-  $scope.saveChanges = function(question){
-    for (var i = 0; i < $scope.questions.length; i++) {
-      if ($scope.questions[i].question_id == question.question_id)
-      {
-          Question.update(question)
-      } 
-      else { }
-    };
+  $scope.saveQuestion = function(question){
+    Question.save(question);
+    $scope.questions = Question.get();
+    $scope.questions.reverse
+
   };
+
 })
+
+
+.directive('addQuestion', function() { 
+  return { 
+    restrict: 'EA',
+    link: function ($scope, element, attrs) {
+      console.log(attrs);
+      element.click(function(data){
+        element.hide();
+        $(".add-question-form").slideDown();
+      })
+    }
+  }; 
+});
 ;

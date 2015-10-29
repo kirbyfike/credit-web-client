@@ -1,8 +1,15 @@
 angular.module( 'credit.admin.questionnaire.questionnaires', [
   'ui.router.state',
-  'ngResource', 'xeditable'
+  'ngResource',
+  'mgcrea.ngStrap.typeahead'
 ])
-.config(function config( $stateProvider ) {
+.config(function config( $stateProvider,$typeaheadProvider ) {
+  angular.extend($typeaheadProvider.defaults, {
+    templateUrl: 'app/admin/questionnaire/questionnaires/template.tpl.html',
+    animation: 'am-flip-x',
+    minLength: 1  
+  });
+
   $stateProvider
     .state( 'adminQuestionnaire.index', {
       url: '',
@@ -203,9 +210,16 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
 
 .controller('AdminQuestionnaireIndexCtrl', function AdminQuestionnaireIndexCtrl($scope, $state, Questionnaire) {
   $scope.questionnaires = Questionnaire.get();
+
+
+  $scope.selectedIcon = "";
+
+  $scope.selectedAddress = "";
 })
 
-.controller('AdminQuestionnaireShowCtrl', function AdminQuestionnaireShowCtrl($scope, $state, Questionnaire, QuestionnaireQuestion, Category) {
+.controller('AdminQuestionnaireShowCtrl', function AdminQuestionnaireShowCtrl($scope, $state, Questionnaire, QuestionnaireQuestion, Category, Question) {
+
+  $scope.questions = Question.get();
 
   $scope.categories = Category.get();
 
@@ -217,7 +231,7 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
 
   $scope.createQuestion = function() {
 
-    var newQuestion = {questionnaire_id: $state.params.questionnaire_id, parent_id: 0, question_text: $scope.newQuestionText, trigger_on: "yes"};
+    var newQuestion = {questionnaire_id: $state.params.questionnaire_id, parent_id: 0, question_text: $scope.newQuestion.question_text, trigger_on: "yes"};
 
     QuestionnaireQuestion.save(newQuestion);
 
@@ -227,7 +241,9 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
   }
 })
 
-.controller( 'AdminQuestionnaireEditQuestionCtrl', function AdminQuestionnaireEditQuestionCtrl($scope, $state, Questionnaire, QuestionnaireQuestion) {
+.controller( 'AdminQuestionnaireEditQuestionCtrl', function AdminQuestionnaireEditQuestionCtrl($scope, $state, Questionnaire, QuestionnaireQuestion, Question) {
+  $scope.questions = Question.get();
+
   $scope.questionnaire = Questionnaire.get({questionnaire_id:$state.params.questionnaire_id});
   $scope.newQuestionText = "";
   
@@ -248,7 +264,7 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
 
   $scope.createQuestion = function() {
 
-    var newQuestion = {questionnaire_id: $state.params.questionnaire_id, parent_id: $scope.main_question.id, question_text: $scope.newQuestionText};
+    var newQuestion = {questionnaire_id: $state.params.questionnaire_id, parent_id: $scope.main_question.id, question_text: $scope.newQuestion.question_text};
 
     QuestionnaireQuestion.save(newQuestion);
 

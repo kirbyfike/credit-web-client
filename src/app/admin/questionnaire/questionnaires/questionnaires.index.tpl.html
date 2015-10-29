@@ -2,10 +2,13 @@
   <div id="questionnaire-logo">
   </div>
 
-  <i class="fa fa-bars fa-2x"></i>
+  <div toggle-nav class="toggle-nav-holder">
+    <i class="fa fa-bars fa-2x toggle-nav-button"></i>
+  </div>
 </header>
-<div id="questionnaire-show" class="container">
 
+<div id="screen"></div>
+<div id="questionnaire-show" class="container">
   <div>
     <div style="text-align:center;">
       <h1>Questionnaires</h1>
@@ -49,4 +52,18 @@
           >Create</button>
     </form>
   </div>
+</div>
+
+<div id="questionnaire-nav">
+  <ul id="nav">
+    <li>
+      <a ui-sref="adminQuestionnaire.index()">Questionnaires</a>
+    </li>
+    <li>
+      <a ui-sref="adminQuestionnaire.categories()">Categories</a>
+    </li>
+    <li>
+      <a ui-sref="adminQuestionnaire.questions()">Questions</a>
+    </li>
+  </ul>
 </div>
