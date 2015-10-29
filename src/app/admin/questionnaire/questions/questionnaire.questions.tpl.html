@@ -26,7 +26,7 @@
   </div>
 
   <div class="col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder">
-    <form name="form_constraints" ng-model="question" class="add-question-form form-validation" ng-submit="update(question)" style="display: none">
+    <form name="form_constraints" ng-model="question" class="add-question-form question-form form-validation" ng-submit="update(question)" style="display: none">
       <div class="form-group">
         <label for="">Question Text:</label>
         <input  type="text"
@@ -118,7 +118,7 @@
           </span>
           <!-- EDIT FORM -->
           <div  class="col-md-12 col-lg-12 col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder">
-            <form name="form_constraints" ng-model="question" class="edit-question-form form-validation" ng-submit="update(question)"  ng-show="showForm">
+            <form name="form_constraints" ng-model="question" class="edit-question-form question-form form-validation" ng-submit="update(question)"  ng-show="showForm">
               <div class="form-group">
                 <label for="">Question Text:</label>
                 <input  type="text"
