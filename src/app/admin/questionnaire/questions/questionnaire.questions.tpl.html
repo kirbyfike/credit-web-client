@@ -28,7 +28,7 @@
   <div class="col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder">
     <form name="form_constraints" ng-model="question" class="add-question-form form-validation" ng-submit="update(question)" style="display: none">
       <div class="form-group">
-        <label for="">Question Text</label>
+        <label for="">Question Text:</label>
         <input  type="text"
                 class="form-control"
                 ng-model="question.question_text"
@@ -36,7 +36,7 @@
       </div>
 
       <div class="form-group">
-        <label for="">Trigger Finding On</label><br>
+        <label for="">Trigger Finding On:</label><br>
         <label>
           <input type="radio" ng-model="question.trigger_finding_on" value="Yes">
           Yes
@@ -48,7 +48,7 @@
       </div>
 
       <div class="form-group">
-        <label for="">Risk Category</label>
+        <label for="">Risk Category:</label>
         <input  type="text"
                 class="form-control"
                 ng-model="question.risk_category"
@@ -56,7 +56,7 @@
       </div>
 
       <div class="form-group">
-        <label for="">Finding Category</label>
+        <label for="">Finding Category:</label>
         <input  type="text"
                 class="form-control"
                 ng-model="question.finding_category"
@@ -64,7 +64,7 @@
       </div>
 
       <div class="form-group">
-        <label for="">Finding Sub Category</label>
+        <label for="">Finding Sub Category:</label>
         <input  type="text"
                 class="form-control"
                 ng-model="question.finding_sub_category"
@@ -72,7 +72,7 @@
       </div>
 
       <div class="form-group">
-        <label for="">Finding Statement</label>
+        <label for="">Finding Statement:</label>
         <input  type="text"
                 class="form-control"
                 ng-model="question.finding_statement"
@@ -80,7 +80,7 @@
       </div>
 
       <div class="form-group">
-        <label for="">Finding Comment Template</label>
+        <label for="">Finding Comment Template:</label>
         <input  type="text"
                 class="form-control"
                 ng-model="question.finding_comment_template"
@@ -88,7 +88,7 @@
       </div>
 
       <div class="form-group">
-        <label for="">Risk Rating</label>
+        <label for="">Risk Rating:</label>
         <input  type="text"
                 class="form-control"
                 ng-model="question.risk_rating"
@@ -113,16 +113,14 @@
       <h4>Questions</h4>
       </tr>
       <tr ng-repeat="question in questions | filter:searchText track by question.question_id">
-        <td><i class="fa fa-check-circle-o question-check"></i> {{question.question_text}}</td>
-        <td class="edit-item">
-          <!-- <a ng-click="showForm=true" class="glyphicon glyphicon-pencil"></a> -->
-          <button class="btn btn-primary edit-question-button" ng-click="showForm = true;" ng-show="!showForm">edit</button>
-
+        <td>
+          <span ng-show="!showForm"><i class="fa fa-check-circle-o question-check"></i> {{question.question_text}}
+          </span>
           <!-- EDIT FORM -->
-          <div  class="col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder">
+          <div  class="col-md-12 col-lg-12 col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder">
             <form name="form_constraints" ng-model="question" class="edit-question-form form-validation" ng-submit="update(question)"  ng-show="showForm">
               <div class="form-group">
-                <label for="">Question Text</label>
+                <label for="">Question Text:</label>
                 <input  type="text"
                         class="form-control"
                         ng-model="question.question_text"
@@ -130,19 +128,23 @@
               </div>
 
               <div class="form-group">
-                <label for="">Trigger Finding On</label><br>
-                <label>
+                <label for="">Trigger Finding On:</label><br>
+                <div>
+                  <label>
                   <input type="radio" ng-model="question.trigger_finding_on" value="Yes">
                   Yes
-                </label><br/>
-                <label>
+                </label>
+              </div>
+                <div>
+                  <label>
                   <input type="radio" ng-model="question.trigger_finding_on" value="No">
                   No
-                </label><br />
+                </label>
+              </div>
               </div>
 
               <div class="form-group">
-                <label for="">Risk Category</label>
+                <label for="">Risk Category:</label>
                 <input  type="text"
                         class="form-control"
                         ng-model="question.risk_category"
@@ -150,7 +152,7 @@
               </div>
 
               <div class="form-group">
-                <label for="">Finding Category</label>
+                <label for="">Finding Category:</label>
                 <input  type="text"
                         class="form-control"
                         ng-model="question.finding_category"
@@ -158,7 +160,7 @@
               </div>
 
               <div class="form-group">
-                <label for="">Finding Sub Category</label>
+                <label for="">Finding Sub Category:</label>
                 <input  type="text"
                         class="form-control"
                         ng-model="question.finding_sub_category"
@@ -166,7 +168,7 @@
               </div>
 
               <div class="form-group">
-                <label for="">Finding Statement</label>
+                <label for="">Finding Statement:</label>
                 <input  type="text"
                         class="form-control"
                         ng-model="question.finding_statement"
@@ -174,7 +176,7 @@
               </div>
 
               <div class="form-group">
-                <label for="">Finding Comment Template</label>
+                <label for="">Finding Comment Template:</label>
                 <input  type="text"
                         class="form-control"
                         ng-model="question.finding_comment_template"
@@ -182,7 +184,7 @@
               </div>
 
               <div class="form-group">
-                <label for="">Risk Rating</label>
+                <label for="">Risk Rating:</label>
                 <input  type="text"
                         class="form-control"
                         ng-model="question.risk_rating"
@@ -200,6 +202,11 @@
                       >Update</button> -->
             </form>
           </div>
+        </td>
+        <td class="edit-item">
+          <!-- <a ng-click="showForm=true" class="glyphicon glyphicon-pencil"></a> -->
+          <button class="btn btn-primary edit-question-button" ng-click="showForm = true;" ng-show="!showForm">edit</button>
+
         </td>
           <!-- <div class="editForm">  -->
           <!-- <edit-question info="question"></edit-question>  -->
