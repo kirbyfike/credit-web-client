@@ -11,7 +11,7 @@ angular.module( 'credit.admin.questionnaire', [
 	'credit.admin.questionnaire.nav',
   'ui.router.state',
   'ngResource', 
-  'xeditable'
+  'ui.bootstrap'
 ])
 .config(function config( $stateProvider ) {
   $stateProvider
