@@ -215,6 +215,27 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
   $scope.selectedIcon = "";
 
   $scope.selectedAddress = "";
+
+  // PAGINATION
+
+    $scope.viewby = 5;
+    $scope.totalItems = $scope.questionnaires.length;
+    $scope.currentPage = 1;
+    $scope.itemsPerPage = $scope.viewby;
+    $scope.maxSize = 10; //Number of pager buttons to show
+
+    $scope.setPage = function (pageNo) {
+      $scope.currentPage = pageNo;
+    };
+
+    $scope.pageChanged = function() {
+      console.log('Page changed to: ' + $scope.currentPage);
+    };
+
+  $scope.setItemsPerPage = function(num) {
+    $scope.itemsPerPage = num;
+    $scope.currentPage = 1; //reset to first paghe
+  }
 })
 
 .controller('AdminQuestionnaireShowCtrl', function AdminQuestionnaireShowCtrl($scope, $state, Questionnaire, QuestionnaireQuestion, Category, Question) {
@@ -272,6 +293,7 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
 
     $scope.newQuestionText = "";
   };
+
 
 })
 
