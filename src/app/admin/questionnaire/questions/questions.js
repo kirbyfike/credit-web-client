@@ -141,7 +141,7 @@ angular.module( 'credit.admin.questionnaire.questions', [
 
   // PAGINATION
 
-    $scope.viewby = 5;
+    $scope.viewby = 10;
     $scope.totalItems = $scope.questions.length;
     $scope.currentPage = 1;
     $scope.itemsPerPage = $scope.viewby;
