@@ -1,7 +1,11 @@
 <header id="question-nav">
   <div id="questionnaire-logo">
   </div>
+  <div toggle-nav class="toggle-nav-holder">
+    <i class="fa fa-bars fa-2x toggle-nav-button"></i>
+  </div>
 </header>
+<div id="screen"></div>
 <div id="questionnaire-show" class="container">
 
   <div>
@@ -112,7 +116,7 @@
       <tr>
       <h4>Questions</h4>
       </tr>
-      <tr ng-repeat="question in questions | filter:searchText track by question.question_id">
+      <tr ng-repeat="question in questions.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:searchText track by question.question_id">
         <td>
           <span ng-show="!showForm"><i class="fa fa-check-circle-o question-check"></i> {{question.question_text}}
           </span>
@@ -219,4 +223,27 @@
     </tbody>
   </table>
 
+    <div class="text-center">
+        <ul class="pagination">
+          View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>10</option><option>25</option><option>30</option><option>50</option><option>100</option><option>250</option></select> records at a time.
+
+        <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage"></pagination>
+        <span>Page: {{currentPage}} / {{numPages}}</span>
+      </ul>
+  </div>
+  
+</div>
+
+<div id="questionnaire-nav">
+  <ul id="nav">
+    <li>
+      <a ui-sref="adminQuestionnaire.index()">Questionnaires</a>
+    </li>
+    <li>
+      <a ui-sref="adminQuestionnaire.categories()">Categories</a>
+    </li>
+    <li>
+      <a ui-sref="adminQuestionnaire.questions()">Questions</a>
+    </li>
+  </ul>
 </div>

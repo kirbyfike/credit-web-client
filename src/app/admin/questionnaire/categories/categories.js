@@ -1,6 +1,6 @@
 angular.module( 'credit.admin.questionnaire.categories', [
   'ui.router.state',
-  'ngResource', 'xeditable'
+  'ngResource'
 ])
 
 .config(function config( $stateProvider ) {
@@ -15,13 +15,13 @@ angular.module( 'credit.admin.questionnaire.categories', [
 
 .factory('Category', function ($resource, URLHOST)  {
   var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/data/category.json" : "/category.json";
-  STORAGE_ID = 'categories';
+  CATEGORY_STORAGE_ID = 'categories';
   DEMO_CATEGORIES = require('./category.json');
 
 
   var LocalCategory = {
     get: function(category) {
-      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
+      var return_array = JSON.parse(localStorage.getItem(CATEGORY_STORAGE_ID)) || DEMO_CATEGORIES;
 
       if ((typeof return_array != 'undefined') && category) {
         var id = category.category_id;
@@ -35,7 +35,7 @@ angular.module( 'credit.admin.questionnaire.categories', [
       return return_array;
     },
     put: function(categories) {
-      return localStorage.setItem(STORAGE_ID, JSON.stringify(categories));
+      return localStorage.setItem(CATEGORY_STORAGE_ID, JSON.stringify(categories));
     },
     update: function(category) {
       // return localStorage.setItem(STORAGE_ID, JSON.stringify(categories));
@@ -98,8 +98,6 @@ angular.module( 'credit.admin.questionnaire.categories', [
 .controller( 'AdminQuestionnaireCategoriesCtrl', function AdminQuestionnaireCategoriesCtrl($scope, $state, Category) {
   $scope.categories = Category.get();
 
-  console.log($scope.categories);
-
   // remove category
   $scope.removeCategory = function(category) {
    Category.delete(category);
@@ -143,7 +141,26 @@ angular.module( 'credit.admin.questionnaire.categories', [
   //     $scope.showForm = !$scope.showForm;
   // };
 
+// PAGINATION
 
+  $scope.viewby = 10;
+  $scope.totalItems = $scope.categories.length;
+  $scope.currentPage = 1;
+  $scope.itemsPerPage = $scope.viewby;
+  $scope.maxSize = 5; //Number of pager buttons to show
+
+  $scope.setPage = function (pageNo) {
+    $scope.currentPage = pageNo;
+  };
+
+  $scope.pageChanged = function() {
+    console.log('Page changed to: ' + $scope.currentPage);
+  };
+
+$scope.setItemsPerPage = function(num) {
+  $scope.itemsPerPage = num;
+  $scope.currentPage = 1; //reset to first paghe
+}
 
 })
 ;

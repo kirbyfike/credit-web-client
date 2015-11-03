@@ -7,6 +7,7 @@
 	require('angular-resource');
 	require('angular-xeditable');
 	require('angular-ui-bootstrap');
+	require('angular-strap');
 
 	require('./login/login.js');
 	require('./admin/questionnaire/questionnaire.js');

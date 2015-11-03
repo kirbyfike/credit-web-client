@@ -11,7 +11,8 @@ angular.module( 'credit.admin.questionnaire', [
 	'credit.admin.questionnaire.nav',
   'ui.router.state',
   'ngResource', 
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ngResource'
 ])
 .config(function config( $stateProvider ) {
   $stateProvider
@@ -23,7 +24,7 @@ angular.module( 'credit.admin.questionnaire', [
         controller: 'HeaderCtrl',
         templateUrl: 'app/shared/header/header.tpl.html'
       },
-    	"nav": {
+    	"nav-header": {
         controller: 'AdminQuestionnaireNavCtrl',
         templateUrl: 'app/admin/questionnaire/nav/questionnaire.nav.tpl.html'
       },

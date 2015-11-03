@@ -1,6 +1,7 @@
 angular.module( 'credit.admin.questionnaire.questions', [
   'ui.router.state',
-  'ngResource', 'xeditable'
+  'ngResource',
+  'mgcrea.ngStrap.typeahead'
 ])
 .config(function config( $stateProvider ) {
   $stateProvider
@@ -13,16 +14,15 @@ angular.module( 'credit.admin.questionnaire.questions', [
 })
 
 // FACTORY
-
 .factory('Question', function ($resource, URLHOST)  {
   var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/data/question.json" : "/question.json";
-  STORAGE_ID = 'questions';
+  QUESTION_STORAGE_ID = 'questions';
   DEMO_QUESTIONS = require('./question.json');
 
 
   var LocalQuestion = {
     get: function(question) {
-      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONS;
+      var return_array = JSON.parse(localStorage.getItem(QUESTION_STORAGE_ID)) || DEMO_QUESTIONS;
 
       if ((typeof return_array != 'undefined') && question) {
         var id = question.question_id;
@@ -35,13 +35,13 @@ angular.module( 'credit.admin.questionnaire.questions', [
       return return_array;
     },
     put: function(questions) {
-      return localStorage.setItem(STORAGE_ID, JSON.stringify(questions));
+      return localStorage.setItem(QUESTION_STORAGE_ID, JSON.stringify(questions));
     },
     update: function(question) {
 
       var question_id = question.question_id;
       
-      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONS;
+      var return_array = JSON.parse(localStorage.getItem(QUESTION_STORAGE_ID)) || DEMO_QUESTIONS;
 
       if ((typeof return_array != 'undefined') && question) {
         var id = question.question_id;
@@ -50,7 +50,7 @@ angular.module( 'credit.admin.questionnaire.questions', [
           if (return_array[i].question_id == id) {
             return_array[i] = question;
 
-            localStorage.setItem(STORAGE_ID, JSON.stringify(return_array));
+            localStorage.setItem(QUESTION_STORAGE_ID, JSON.stringify(return_array));
 
             return return_array[i];
           }
@@ -59,7 +59,7 @@ angular.module( 'credit.admin.questionnaire.questions', [
     },
     save: function(question) {
 
-      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_QUESTIONS;
+      var return_array = JSON.parse(localStorage.getItem(QUESTION_STORAGE_ID)) || DEMO_QUESTIONS;
       var ids = [];
 
       for (var i = 0; i < return_array.length; i++) {
@@ -70,16 +70,16 @@ angular.module( 'credit.admin.questionnaire.questions', [
       question.question_id = largest + 1;
       return_array.push(question);
 
-      return localStorage.setItem(STORAGE_ID, JSON.stringify(return_array));
+      return localStorage.setItem(QUESTION_STORAGE_ID, JSON.stringify(return_array));
     },
 
     delete: function(question){
 
-      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
+      var return_array = JSON.parse(localStorage.getItem(QUESTION_STORAGE_ID)) || DEMO_CATEGORIES;
 
       newArray = return_array.filter(function(q){return q.question_id !==question.question_id;});
 
-      return localStorage.setItem(STORAGE_ID, JSON.stringify(newArray));
+      return localStorage.setItem(QUESTION_STORAGE_ID, JSON.stringify(newArray));
     }
   };
 
@@ -97,6 +97,7 @@ angular.module( 'credit.admin.questionnaire.questions', [
 
 
 .controller( 'AdminQuestionnaireQuestionsCtrl', function AdminQuestionnaireQuestionsCtrl($scope, $state, Question) {
+
   $scope.questions = Question.get();
 
   // $scope.showForm = true;
@@ -127,18 +128,6 @@ angular.module( 'credit.admin.questionnaire.questions', [
    Question.save(inserted);
 
    $scope.questions = Question.get();
-
-  };
-
-  $scope.saveChanges = function(question){
-    console.log(question)
-    for (var i = 0; i < $scope.questions.length; i++) {
-      if ($scope.questions[i].question_id == question.question_id)
-      {
-          Question.update(question)
-      } 
-      else { }
-    };
   };
 
   $scope.saveQuestion = function(question){
@@ -148,15 +137,36 @@ angular.module( 'credit.admin.questionnaire.questions', [
 
   };
 
+
+
+  // PAGINATION
+
+    $scope.viewby = 10;
+    $scope.totalItems = $scope.questions.length;
+    $scope.currentPage = 1;
+    $scope.itemsPerPage = $scope.viewby;
+    $scope.maxSize = 5; //Number of pager buttons to show
+
+    $scope.setPage = function (pageNo) {
+      $scope.currentPage = pageNo;
+    };
+
+    $scope.pageChanged = function() {
+      console.log('Page changed to: ' + $scope.currentPage);
+    };
+
+  $scope.setItemsPerPage = function(num) {
+    $scope.itemsPerPage = num;
+    $scope.currentPage = 1; //reset to first paghe
+  }
+
+
 })
 
 
 .directive('addQuestion', function() { 
   return { 
-    restrict: 'A',
-    scope: { 
-      info: '=' 
-    }, 
+    restrict: 'EA',
     link: function ($scope, element, attrs) {
       var $editButton = $(".edit-question-button");
       var $editCancelButton = $(".edit-cancel-button");
@@ -184,11 +194,7 @@ angular.module( 'credit.admin.questionnaire.questions', [
       });
 
       });
-
-      element
     }
   }; 
 });
 ;
-
-
