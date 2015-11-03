@@ -147,7 +147,7 @@ angular.module( 'credit.admin.questionnaire.categories', [
   $scope.totalItems = $scope.categories.length;
   $scope.currentPage = 1;
   $scope.itemsPerPage = $scope.viewby;
-  $scope.maxSize = 5; //Number of pager buttons to show
+  $scope.maxSize = 10; //Number of pager buttons to show
 
   $scope.setPage = function (pageNo) {
     $scope.currentPage = pageNo;
