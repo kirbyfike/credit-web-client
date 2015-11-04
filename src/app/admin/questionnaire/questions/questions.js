@@ -174,12 +174,14 @@ angular.module( 'credit.admin.questionnaire.questions', [
 
       $editButton.click(function(){
         $(this).hide();
+        $(this).parents("tr.question-row").find("span.question-text-display").hide();
         $(this).parents("tr.question-row").find("div.edit-question-form").slideDown();
       });
 
       $editCancelButton.click(function(){
         $(this).parents("div.edit-question-form").slideUp();
         $(this).parents("tr.question-row").find("div.edit-question-button").show();
+        $(this).parents("tr.question-row").find("span.question-text-display").show();
       });
 
     }//link
