@@ -164,37 +164,48 @@ angular.module( 'credit.admin.questionnaire.questions', [
 })
 
 
+.directive('editQuestion', function(){
+  return{
+    restrict: 'EA',
+    link: function($scope, element, attrs){
+      var $editButton = $(".edit-question-button");
+      var $editCancelButton = $(".edit-cancel-button");
+      var $editQuestionForm = $(".edit-question-form");
+
+      $editButton.click(function(){
+        $(this).hide();
+        $(this).parents("tr.question-row").find("div.edit-question-form").slideDown();
+      });
+
+      $editCancelButton.click(function(){
+        $(this).parents("div.edit-question-form").slideUp();
+        $(this).parents("tr.question-row").find("div.edit-question-button").show();
+      });
+
+    }//link
+  } //return
+}) //directive
+
+
 .directive('addQuestion', function() { 
   return { 
     restrict: 'EA',
     link: function ($scope, element, attrs) {
-      var $editButton = $(".edit-question-button");
-      var $editCancelButton = $(".edit-cancel-button");
       var $addQuestionForm = $(".add-question-form");
       var $addQuestionCancelButton = $(".add-question-cancel-button");
       var $addQuestionButton = $(".add-question-button");
 
       $addQuestionButton .click(function(data){
-        $addQuestionButton .hide();
+        $(addQuestionButton).hide();
         $addQuestionForm.slideDown();
       });
       $addQuestionCancelButton.click(function(){
         $addQuestionForm.slideUp();
-        $addQuestionButton .show();
+        $addQuestionButton.show();
 
-      $editButton.click(function(){
-        $editButton.hide();
-        $editQuestonForm.slideDown();
-      });
+      }); //link
+    } //return
+  } //directive
 
-      $editCancelButton.click(function(){
-        $editButton.show();
-        $editQuestonForm.slideUp();
 
-      });
-
-      });
-    }
-  }; 
-});
-;
+}); //angular module

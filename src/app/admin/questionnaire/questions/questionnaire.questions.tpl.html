@@ -116,13 +116,13 @@
       <tr>
       <h4>Questions</h4>
       </tr>
-      <tr ng-repeat="question in questions.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:searchText track by question.question_id">
-        <td>
+      <tr ng-repeat="question in questions.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:searchText track by question.question_id" class="question-row">
+        <td class="first-td">
           <span ng-show="!showForm"><i class="fa fa-check-circle-o question-check"></i> {{question.question_text}}
           </span>
           <!-- EDIT FORM -->
-          <div  class="col-md-12 col-lg-12 col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder">
-            <form name="form_constraints" ng-model="question" class="edit-question-form question-form form-validation" ng-submit="update(question)"  ng-show="showForm">
+          <div class="col-md-12 col-lg-12 col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder edit-question-form" style="display: none;">
+            <form name="form_constraints" ng-model="question" class=" question-form form-validation" ng-submit="update(question)" >
               <div class="form-group">
                 <label for="">Question Text:</label>
                 <input  type="text"
@@ -209,8 +209,8 @@
         </td>
         <td class="edit-item">
           <!-- <a ng-click="showForm=true" class="glyphicon glyphicon-pencil"></a> -->
-          <div class="edit-question-button" ng-click="showForm = true;" ng-show="!showForm">
-            <span class="edit-pencil glyphicon glyphicon-pencil"></span>
+          <div class="edit-question-button">
+            <span edit-question class=" edit-pencil glyphicon glyphicon-pencil"></span>
           </div>
 
         </td>
