@@ -198,7 +198,7 @@ angular.module( 'credit.admin.questionnaire.questions', [
       var $addQuestionButton = $(".add-question-button");
 
       $addQuestionButton .click(function(data){
-        $(addQuestionButton).hide();
+        $addQuestionButton.hide();
         $addQuestionForm.slideDown();
       });
       $addQuestionCancelButton.click(function(){
