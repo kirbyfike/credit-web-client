@@ -22,11 +22,11 @@
   <div>
     <div style="text-align:center;">
       <h1>{{main_question.question_text}}?</h1>
-      <div class="btn-group">
-        <button type="button" class="btn" ng-class="main_question.trigger_on == 'yes' ? 'btn-primary' : 'btn-line-primary'" ng-click="addOtherQuestions(main_question, 'yes')">Yes</button>
-        <button type="button" class="btn" ng-class="main_question.trigger_on == 'no' ? 'btn-primary' : 'btn-line-primary'" ng-click="addOtherQuestions(main_question, 'no')">No</button>
-      </div>
     </div>
+  </div>
+
+  <div class="yesNoLabel yesLabel">
+    <h2>Yes</h2>
   </div>
   
   <div ng-show="show_add_input || main_question.trigger_on == 'yes' || main_question.trigger_on == 'no'" class="col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder">
@@ -56,21 +56,41 @@
       
     </tbody>
   </table>
-  <div ng-show="showAddForm">
-    <form ng-submit="createQuestion(newQuestion)" ng-model="newQuestion">
-      <div class="form-group">
-        <label for="">Question Text</label>
-        <input  type="text"
-                class="form-control"
-                ng-model="newQuestion.question_text"
-        >
-      </div>
-      <button type="submit"
-          class="btn btn-success"
-          >Create</button>
+
+  <div class="yesNoLabel noLabel">
+    <h2>No</h2>
+  </div>
+  
+  <div ng-show="show_add_input || main_question.trigger_on == 'yes' || main_question.trigger_on == 'no'" class="col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder">
+    <form data-ng-submit="add()" class="add-task">
+      <input type="text"
+             placeholder="Add a question..."
+             class="form-control"
+             data-ng-model="newQuestion"
+             autofocus
+             bs-options="question.question_text for question in questions"
+             bs-typeahead>
+      <a type="submit" class="submit-button" data-ng-click="createQuestion()">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
     </form>
   </div>
+
+
+  <table class="table table-striped table-responsive">
+    <tbody>
+      <tr ng-repeat="question in questionnaire_questions track by question.id">
+        <td><i class="fa fa-check-circle-o question-check"></i> {{question.question_text}}</td>
+        <td class="edit-item">
+          <a ui-sref="adminQuestionnaire.questionnaireEditQuestion({question_id: question.id, questionnaire_id: question.questionnaire_id})" class="glyphicon glyphicon-pencil"></a>
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
+
 </div>
+
 <div id="questionnaire-nav">
   <ul id="nav">
     <li>
