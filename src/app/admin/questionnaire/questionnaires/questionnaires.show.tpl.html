@@ -21,14 +21,14 @@
     </div>
   </div>
   <div class="col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder">
-    <form data-ng-submit="add()" class="add-task">
+    <form class="add-task">
       <input type="text"
              placeholder="Add a question..."
              class="form-control"
-             data-ng-model="newQuestion"
+             ng-model="newQuestionText"
              autofocus
-             bs-options="question.question_text for question in questions"
-             bs-typeahead>
+             uib-typeahead="question.question_text for question in questions | filter:$viewValue | limitTo:8"
+            >
       <a type="submit" class="submit-button" data-ng-click="createQuestion()">
         <span class="glyphicon glyphicon-plus"></span>
       </a>

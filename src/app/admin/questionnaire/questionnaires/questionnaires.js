@@ -139,6 +139,18 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
         }
       }
 
+      if (requestObject.trigger_on) {
+        var trigger_array = [];
+
+        for (var i = 0; i < new_array.length; i++) {
+          if (new_array[i].trigger_on == requestObject.trigger_on) {
+            trigger_array.push(new_array[i]);
+          }
+        }
+
+        new_array = trigger_array;
+      }
+
 
       return new_array;
     },
@@ -163,7 +175,6 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
       return questionnaire_question;
     },
     save: function(questionnaire_question) {
-      console.log(questionnaire_question);
       
       var return_array = JSON.parse(localStorage.getItem(QUESTIONNAIRE_QUESTION_STORAGE_ID)) || DEMO_QUESTIONNAIRE_QUESTIONS;
       var ids = [];
@@ -252,7 +263,7 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
 
   $scope.createQuestion = function() {
 
-    var newQuestion = {questionnaire_id: $state.params.questionnaire_id, parent_id: 0, question_text: $scope.newQuestion.question_text, trigger_on: "yes"};
+    var newQuestion = {questionnaire_id: $state.params.questionnaire_id, parent_id: 0, question_text: $scope.newQuestionText, trigger_on: "yes"};
 
     QuestionnaireQuestion.save(newQuestion);
 
@@ -267,12 +278,16 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
 
   $scope.questionnaire = Questionnaire.get({questionnaire_id:$state.params.questionnaire_id});
   $scope.newQuestionText = "";
+
+  $scope.newQuestionYes = "";
   
   $scope.main_question = QuestionnaireQuestion.get({question_id: $state.params.question_id, questionnaire_id: $state.params.questionnaire_id});
 
   $scope.history = QuestionnaireQuestion.get_breadcrumb($scope.main_question);
 
-  $scope.questionnaire_questions = QuestionnaireQuestion.get({parent_id: $state.params.question_id, questionnaire_id: $state.params.questionnaire_id});
+  $scope.yes_questionnaire_questions = QuestionnaireQuestion.get({parent_id: $state.params.question_id, questionnaire_id: $state.params.questionnaire_id, trigger_on: "yes"});
+  $scope.no_questionnaire_questions = QuestionnaireQuestion.get({parent_id: $state.params.question_id, questionnaire_id: $state.params.questionnaire_id, trigger_on: "no"});
+
   $scope.show_add_input = false;
 
 
@@ -283,18 +298,25 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
     $scope.show_add_input = true;
   };
 
-  $scope.createQuestion = function() {
+  $scope.createYesQuestion = function() {
 
-    var newQuestion = {questionnaire_id: $state.params.questionnaire_id, parent_id: $scope.main_question.id, question_text: $scope.newQuestion.question_text};
+    var newQuestion = {questionnaire_id: $state.params.questionnaire_id, parent_id: $scope.main_question.id, question_text: $scope.newQuestionYes, trigger_on: "yes"};
 
     QuestionnaireQuestion.save(newQuestion);
 
-    $scope.questionnaire_questions = QuestionnaireQuestion.get({parent_id: $scope.main_question.id, questionnaire_id: $state.params.questionnaire_id});
+    $scope.yes_questionnaire_questions = QuestionnaireQuestion.get({parent_id: $scope.main_question.id, questionnaire_id: $state.params.questionnaire_id, trigger_on: "yes"});
 
-    $scope.newQuestionText = "";
+    $scope.newQuestionYes = "";
   };
 
+  $scope.createNoQuestion = function() {
 
+    var newQuestion = {questionnaire_id: $state.params.questionnaire_id, parent_id: $scope.main_question.id, question_text: $scope.newQuestionNo, trigger_on: "no"};
+
+    QuestionnaireQuestion.save(newQuestion);
+
+    $scope.no_questionnaire_questions = QuestionnaireQuestion.get({parent_id: $scope.main_question.id, questionnaire_id: $state.params.questionnaire_id, trigger_on: "no"});
+
+    $scope.newQuestionNo = "";
+  };
 })
-
-

@@ -21,6 +21,41 @@
   cursor: pointer;
 }
 
+.yesNoLabel {
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+	margin: 0px auto;
+
+	h2 {
+		padding: 33px 25px;
+		color: white;
+	}
+}
+
+.yesLabel {
+	background-color: green;
+}
+
+.noLabel {
+	background-color: red;
+
+	h2 {
+		padding: 33px 31px;
+	}
+}
+
+
+.truncate {
+	width: 90px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  margin-bottom: -6px;
+}
+
+
 
 
 #questionnaire-index {
