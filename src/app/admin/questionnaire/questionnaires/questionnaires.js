@@ -81,11 +81,11 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
       var ids = [];
 
       for (var i = 0; i < return_array.length; i++) {
-        ids.push(return_array[i].questionnaire_id);
+        ids.push(return_array[i].id);
       }
 
       var largest = Math.max.apply(Math, ids);
-      questionnaire.questionnaire_id = largest + 1;
+      questionnaire.id = largest + 1;
       return_array.push(questionnaire);
 
       return localStorage.setItem(QUESTIONNAIRE_STORAGE_ID, JSON.stringify(return_array));
