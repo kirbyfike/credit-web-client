@@ -133,7 +133,7 @@ angular.module( 'credit.admin.questionnaire.categories', [
   $scope.saveCategory = function(category){
       Category.save(category);
       $scope.categories = Category.get();
-      $scope.categories.reverse();
+      // $scope.categories.reverse();
   };
 
   // $scope.showForm = false;

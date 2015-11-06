@@ -227,6 +227,29 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
 
   $scope.selectedAddress = "";
 
+  // add questionnaire
+  $scope.addQuestionnaire = function() {
+
+    var inserted = {
+
+     title: null,
+     category_id: null,
+    };
+
+    Questionnaire.save(inserted);
+    $scope.questionnaires = Questionnaire.get();
+
+  };
+
+  $scope.saveQuestionnaire = function(questionnaire){
+      Questionnaire.save(questionnaire);
+      $scope.questionnaires = Questionnaire.get();
+      $scope.questionnaires.reverse();
+      console.log($scope.questionnaires);
+  };
+
+
+
   // PAGINATION
 
     $scope.viewby = 5;

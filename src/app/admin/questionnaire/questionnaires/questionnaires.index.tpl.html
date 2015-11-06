@@ -22,10 +22,38 @@
         </form>
       </div>
       <div>
-        <button ng-click="showAddQuestionForm()" style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Add Questionnaire</button>
+<!--         <button ng-click="showAddQuestionForm()" style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Add Questionnaire</button>
+      </div> -->
+      <div>
+        <button ng-click="showAddForm = true" ng-show="!showAddForm"style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Add Questionnaire</button>
       </div>
-    </div>
+      <div>
+        <button ng-click="showAddForm = false" ng-show="showAddForm"style="margin-right: 2%; margin-right: 17px;" type="button" class="pull-right btn btn-primary btn-sm">Cancel</button>
+      </div>
+
+      <form data-ng-submit="add()" class="add-task">
+        <div>
+          <button ng-click="saveCategory(category); showAddForm = false" ng-show="showAddForm"style="margin-right: 2%; margin-right: 17px;" type="submit" class="pull-right btn btn-primary btn-sm">Save Questionnaire</button>
+        </div> 
+
+        </div>
+      </div>
+
+    <br>
+    
   </div>
+
+    <div ng-show="showAddForm" class="col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder">
+        <input type="text"
+               placeholder="Add a questionnaire..."
+               class="form-control"
+               data-ng-model="questionnaire.title"
+               autofocus>
+  <!--       <a type="submit" class="submit-button" data-ng-click="saveCategory(category); showForm = false">
+          <span class="glyphicon glyphicon-plus"></span>
+        </a> -->
+      </form><br>
+    </div>
 
   <table class="table table-striped table-responsive">
     <tbody>
