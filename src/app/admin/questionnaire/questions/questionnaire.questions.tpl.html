@@ -30,7 +30,7 @@
   </div>
 
   <div class="col-sm-4 col-xs-6 page page-tasks ng-scope question-input-holder">
-    <form name="form_constraints" ng-model="question" class="add-question-form question-form form-validation" ng-submit="update(question)" style="display: none">
+    <form name="form_constraints" ng-model="question" class="add-question-form question-form form-validation" ng-submit="saveQuestion(question)" style="display: none">
       <div class="form-group">
         <label for="">Question Text:</label>
         <input  type="text"
@@ -100,7 +100,7 @@
       </div>
 
       <div>
-        <button class="btn btn-primary" ng-click="saveChanges(category)" >save</button>
+        <button class="btn btn-primary">save</button>
         <button class="btn btn-primary add-question-cancel-button" >cancel</button>
       </div>
 

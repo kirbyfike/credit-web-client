@@ -81,11 +81,11 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
       var ids = [];
 
       for (var i = 0; i < return_array.length; i++) {
-        ids.push(return_array[i].questionnaire_id);
+        ids.push(return_array[i].id);
       }
 
       var largest = Math.max.apply(Math, ids);
-      questionnaire.questionnaire_id = largest + 1;
+      questionnaire.id = largest + 1;
       return_array.push(questionnaire);
 
       return localStorage.setItem(QUESTIONNAIRE_STORAGE_ID, JSON.stringify(return_array));
@@ -226,6 +226,29 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
   $scope.selectedIcon = "";
 
   $scope.selectedAddress = "";
+
+  // add questionnaire
+  $scope.addQuestionnaire = function() {
+
+    var inserted = {
+
+     title: null,
+     category_id: null,
+    };
+
+    Questionnaire.save(inserted);
+    $scope.questionnaires = Questionnaire.get();
+
+  };
+
+  $scope.saveQuestionnaire = function(questionnaire){
+      Questionnaire.save(questionnaire);
+      $scope.questionnaires = Questionnaire.get();
+      $scope.questionnaires.reverse();
+      console.log($scope.questionnaires);
+  };
+
+
 
   // PAGINATION
 

@@ -42,7 +42,7 @@ angular.module( 'credit.admin.questionnaire.categories', [
     
         var category_id = category.category_id;
         
-        var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
+        var return_array = JSON.parse(localStorage.getItem(CATEGORY_STORAGE_ID)) || DEMO_CATEGORIES;
 
         if ((typeof return_array != 'undefined') && category) {
           var id = category.category_id;
@@ -51,7 +51,7 @@ angular.module( 'credit.admin.questionnaire.categories', [
             if (return_array[i].category_id == id) {
               return_array[i] = category;
 
-              localStorage.setItem(STORAGE_ID, JSON.stringify(return_array));
+              localStorage.setItem(CATEGORY_STORAGE_ID, JSON.stringify(return_array));
 
               return return_array[i];
             }
@@ -60,7 +60,7 @@ angular.module( 'credit.admin.questionnaire.categories', [
     },
     save: function(category) {
 
-      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
+      var return_array = JSON.parse(localStorage.getItem(CATEGORY_STORAGE_ID)) || DEMO_CATEGORIES;
       var ids = [];
 
       for (var i = 0; i < return_array.length; i++) {
@@ -71,16 +71,16 @@ angular.module( 'credit.admin.questionnaire.categories', [
       category.category_id = largest + 1;
       return_array.push(category);
 
-      return localStorage.setItem(STORAGE_ID, JSON.stringify(return_array));
+      return localStorage.setItem(CATEGORY_STORAGE_ID, JSON.stringify(return_array));
     },
 
     delete: function(category){
 
-      var return_array = JSON.parse(localStorage.getItem(STORAGE_ID)) || DEMO_CATEGORIES;
+      var return_array = JSON.parse(localStorage.getItem(CATEGORY_STORAGE_ID)) || DEMO_CATEGORIES;
 
       newArray = return_array.filter(function(cat){return cat.category_id !==category.category_id;});
 
-      return localStorage.setItem(STORAGE_ID, JSON.stringify(newArray));
+      return localStorage.setItem(CATEGORY_STORAGE_ID, JSON.stringify(newArray));
     }
   };
 
@@ -130,19 +130,13 @@ angular.module( 'credit.admin.questionnaire.categories', [
     
   };
 
-  $scope.saveCategory = function(category){
-      Category.save(category);
-      $scope.categories = Category.get();
-      $scope.categories.reverse();
+  $scope.saveCategory = function(category) {
+    Category.save(category);
+    $scope.categories = Category.get();
+    // $scope.categories.reverse();
   };
 
-  // $scope.showForm = false;
-  // $scope.toggle = function() {
-  //     $scope.showForm = !$scope.showForm;
-  // };
-
-// PAGINATION
-
+  // PAGINATION
   $scope.viewby = 10;
   $scope.totalItems = $scope.categories.length;
   $scope.currentPage = 1;
