@@ -114,7 +114,8 @@ angular.module( 'credit.admin.questionnaire.questions', [
 
   // add question
   $scope.addQuestion = function() {
-   var inserted = {
+
+    var inserted = {
      question_text: '',
      trigger_finding_on: null,
      risk_category: null,
@@ -123,18 +124,16 @@ angular.module( 'credit.admin.questionnaire.questions', [
      finding_statement: null,
      finding_comment_template: null,
      risk_rating: null,
-   };
+    };
 
-   Question.save(inserted);
+    Question.save(inserted);
 
-   $scope.questions = Question.get();
+    $scope.questions = Question.get();
   };
 
   $scope.saveQuestion = function(question){
     Question.save(question);
     $scope.questions = Question.get();
-    $scope.questions.reverse
-
   };
 
 

@@ -130,19 +130,13 @@ angular.module( 'credit.admin.questionnaire.categories', [
     
   };
 
-  $scope.saveCategory = function(category){
-      Category.save(category);
-      $scope.categories = Category.get();
-      // $scope.categories.reverse();
+  $scope.saveCategory = function(category) {
+    Category.save(category);
+    $scope.categories = Category.get();
+    // $scope.categories.reverse();
   };
 
-  // $scope.showForm = false;
-  // $scope.toggle = function() {
-  //     $scope.showForm = !$scope.showForm;
-  // };
-
-// PAGINATION
-
+  // PAGINATION
   $scope.viewby = 10;
   $scope.totalItems = $scope.categories.length;
   $scope.currentPage = 1;
