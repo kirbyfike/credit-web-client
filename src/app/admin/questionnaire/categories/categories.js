@@ -13,10 +13,9 @@ angular.module( 'credit.admin.questionnaire.categories', [
   });
 })
 
-.factory('Category', function ($resource, URLHOST)  {
+.factory('Category', function ($resource, URLHOST, DEMO_CATEGORIES)  {
   var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/data/category.json" : "/category.json";
   CATEGORY_STORAGE_ID = 'categories';
-  DEMO_CATEGORIES = require('./category.json');
 
 
   var LocalCategory = {
@@ -84,15 +83,16 @@ angular.module( 'credit.admin.questionnaire.categories', [
     }
   };
 
-  var Category = $resource(URLHOST + "/category/:id.json", {id:'@id'}, {
-    update: { 
-        method: 'PUT', 
-        params: { id: '@id' }
-    },
-    remove: {method:'DELETE'}
-  });
+  // var Category = $resource(URLHOST + "/category/:id.json", {id:'@id'}, {
+  //   update: { 
+  //       method: 'PUT', 
+  //       params: { id: '@id' }
+  //   },
+  //   remove: {method:'DELETE'}
+  // });
 
-  return (URLHOST == "localhost:8888") ? LocalCategory : Category;
+  return LocalCategory;
+  //return ((URLHOST == "localhost:8888") || (URLHOST == "localhost:3000")) ? LocalCategory : Category;
 })
 
 .controller( 'AdminQuestionnaireCategoriesCtrl', function AdminQuestionnaireCategoriesCtrl($scope, $state, Category) {
@@ -100,8 +100,8 @@ angular.module( 'credit.admin.questionnaire.categories', [
 
   // remove category
   $scope.removeCategory = function(category) {
-   Category.delete(category);
-   $state.go('adminQuestionnaire.categories', {}, { reload: true });
+    Category.delete(category);
+    $state.go('adminQuestionnaire.categories', {}, { reload: true });
   };
 
   // add category
@@ -119,9 +119,10 @@ angular.module( 'credit.admin.questionnaire.categories', [
 
   $scope.saveChanges = function(category){
     for (var i = 0; i < $scope.categories.length; i++) {
-      if ($scope.categories[i].category_id == category.category_id)
-      {
-          Category.update(category)
+      if ($scope.categories[i].category_id == category.category_id) {
+        
+        Category.update(category);
+      
       } else { 
 
       }

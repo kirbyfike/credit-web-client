@@ -14,10 +14,9 @@ angular.module( 'credit.admin.questionnaire.questions', [
 })
 
 // FACTORY
-.factory('Question', function ($resource, URLHOST)  {
+.factory('Question', function ($resource, URLHOST, DEMO_QUESTIONS)  {
   var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/data/question.json" : "/question.json";
   QUESTION_STORAGE_ID = 'questions';
-  DEMO_QUESTIONS = require('./question.json');
 
 
   var LocalQuestion = {
@@ -83,15 +82,17 @@ angular.module( 'credit.admin.questionnaire.questions', [
     }
   };
 
-  var Question = $resource(URLHOST + "/Question/:id.json", {id:'@id'}, {
-    update: { 
-        method: 'PUT', 
-        params: { id: '@id' }
-    },
-    remove: {method:'DELETE'}
-  });
+  // var Question = $resource(URLHOST + "/question/:id.json", {id:'@id'}, {
+  //   update: { 
+  //       method: 'PUT', 
+  //       params: { id: '@id' }
+  //   },
+  //   remove: {method:'DELETE'}
+  // });
 
-  return (URLHOST == "localhost:8888") ? LocalQuestion : Question;
+  //return ((URLHOST == "localhost:8888") || (URLHOST == "localhost:3000")) ? LocalQuestion : Question;
+
+  return LocalQuestion;
 })
 
 
@@ -140,26 +141,24 @@ angular.module( 'credit.admin.questionnaire.questions', [
 
   // PAGINATION
 
-    $scope.viewby = 10;
-    $scope.totalItems = $scope.questions.length;
-    $scope.currentPage = 1;
-    $scope.itemsPerPage = $scope.viewby;
-    $scope.maxSize = 10; //Number of pager buttons to show
+  $scope.viewby = 10;
+  $scope.totalItems = $scope.questions.length;
+  $scope.currentPage = 1;
+  $scope.itemsPerPage = $scope.viewby;
+  $scope.maxSize = 10; //Number of pager buttons to show
 
-    $scope.setPage = function (pageNo) {
-      $scope.currentPage = pageNo;
-    };
+  $scope.setPage = function (pageNo) {
+    $scope.currentPage = pageNo;
+  };
 
-    $scope.pageChanged = function() {
-      console.log('Page changed to: ' + $scope.currentPage);
-    };
+  $scope.pageChanged = function() {
+    console.log('Page changed to: ' + $scope.currentPage);
+  };
 
   $scope.setItemsPerPage = function(num) {
     $scope.itemsPerPage = num;
     $scope.currentPage = 1; //reset to first paghe
   }
-
-
 })
 
 

@@ -32,10 +32,9 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
 })
 
 // FACTORY
-.factory('Questionnaire', function ($resource, URLHOST)  {
+.factory('Questionnaire', function ($resource, URLHOST, DEMO_QUESTIONNAIRES)  {
   var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/questionnaire.json" : "/questionnaire.json";
   QUESTIONNAIRE_STORAGE_ID = 'questionnaires';
-  DEMO_QUESTIONNAIRES = require('./questionnaire.json');
 
 
   var LocalQuestionnaire = {
@@ -92,18 +91,20 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
     }
   };
 
-  var Questionnaire = $resource(URLHOST + "/Question/:id.json", {id:'@id'}, {
-    update: { 
-        method: 'PUT', 
-        params: { id: '@id' }
-    },
-    remove: {method:'DELETE'}
-  });
+  // var Questionnaire = $resource(URLHOST + "/question/:id.json", {id:'@id'}, {
+  //   update: { 
+  //       method: 'PUT', 
+  //       params: { id: '@id' }
+  //   },
+  //   remove: {method:'DELETE'}
+  // });
 
-  return (URLHOST == "localhost:8888") ? LocalQuestionnaire : Questionnaire;
+  //return (URLHOST == ("localhost:8888" || "localhost:3000")) ? LocalQuestionnaire : Questionnaire;
+
+  return LocalQuestionnaire;
 })
 
-.factory('QuestionnaireQuestion', function ($resource, URLHOST)  {
+.factory('QuestionnaireQuestion', function ($resource, URLHOST, DEMO_QUESTIONNAIRE_QUESTIONS)  {
   var resourceURL = (URLHOST == "localhost:8888") ? "./app/admin/questionnaire/questionnaire_question.json" : "/questionnaire_question.json";
   QUESTIONNAIRE_QUESTION_STORAGE_ID = 'questionnaireQuestions';
   DEMO_QUESTIONNAIRE_QUESTIONS = require('./questionnaire_question.json');
@@ -208,15 +209,16 @@ angular.module( 'credit.admin.questionnaire.questionnaires', [
     }
   };
 
-  var QuestionnaireQuestion = $resource(URLHOST + "/Question/:id.json", {id:'@id'}, {
-    update: { 
-        method: 'PUT', 
-        params: { id: '@id' }
-    },
-    remove: {method:'DELETE'}
-  });
+  // var QuestionnaireQuestion = $resource(URLHOST + "/question/:id.json", {id:'@id'}, {
+  //   update: { 
+  //       method: 'PUT', 
+  //       params: { id: '@id' }
+  //   },
+  //   remove: {method:'DELETE'}
+  // });
 
-  return (URLHOST == "localhost:8888") ? LocalQuestionnaireQuestion : QuestionnaireQuestion;
+  //return ((URLHOST == "localhost:8888") || (URLHOST == "localhost:3000")) ? LocalQuestionnaireQuestion : QuestionnaireQuestion;
+  return LocalQuestionnaireQuestion;
 })
 
 .controller('AdminQuestionnaireIndexCtrl', function AdminQuestionnaireIndexCtrl($scope, $state, Questionnaire) {
